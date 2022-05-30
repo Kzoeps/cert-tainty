@@ -1,5 +1,8 @@
 import {Connector, useConnect} from 'wagmi';
 import {useEffect, useState} from 'react';
+import {VStack} from '@chakra-ui/react';
+import { FcGoogle } from 'react-icons/fc';
+import CertIconButton from '../icon-button/icon-button';
 
 export function WalletList(props: any) {
 	const [connectoroes, setConnectores] = useState<Connector<any, any>[]>([]);
@@ -11,22 +14,25 @@ export function WalletList(props: any) {
 		}
 	}, [connectors])
 	return (
-		<div>
+		<VStack>
 			{connectoroes.map((connector) => (
-				<button
+				<CertIconButton
 					disabled={!connector.ready}
 					key={connector.id}
+					title={connector.name}
+					icon={<FcGoogle/>}
 					onClick={() => connect(connector)}
-				>
-					{connector.name}
+				/>
+			))}
+
+			{error && <div>{error.message}</div>}
+		</VStack>
+	)
+}
+
+{/*					{connector.name}
 					{!connector.ready && ' (unsupported)'}
 					{isConnecting &&
 					connector.id === pendingConnector?.id &&
 					' (connecting)'}
-				</button>
-			))}
-
-			{error && <div>{error.message}</div>}
-		</div>
-	)
-}
+				</CertIconButton>*/}
