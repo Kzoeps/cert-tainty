@@ -22,6 +22,7 @@ export default function Home() {
 					href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
 					rel="stylesheet"
 				/>
+				<title>Cert-Tainty</title>
 			</Head>
 
 			<Container maxW={'3xl'}>
