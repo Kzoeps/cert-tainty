@@ -14,6 +14,7 @@ import {
 	IconProps,
 	Icon,
 } from '@chakra-ui/react';
+import {WalletList} from '../../components/wallet-list/wallet-list';
 
 const avatars = [
 	{
@@ -140,6 +141,7 @@ export default function SignUp() {
 						</Text>
 					</Stack>
 					<Box as={'form'} mt={10}>
+						<WalletList/>
 						<Stack spacing={4}>
 							<Input
 								placeholder="Firstname"

@@ -3,13 +3,17 @@ import type {AppProps} from 'next/app';
 import {ChakraProvider} from '@chakra-ui/react';
 import Navigation from '../components/navigation/navigation';
 import Footer from '../components/footer/footer';
+import {WagmiConfig} from 'wagmi';
+import {client} from '../wagmi.config';
 
 function MyApp({Component, pageProps}: AppProps) {
 	return (
 		<ChakraProvider>
-			<Navigation/>
-			<Component {...pageProps} />
-			<Footer/>
+			<WagmiConfig client={client}>
+				<Navigation/>
+				<Component {...pageProps} />
+				<Footer/>
+			</WagmiConfig>
 		</ChakraProvider>
 	);
 }
