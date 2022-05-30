@@ -15,9 +15,11 @@ import {
 	useDisclosure
 } from '@chakra-ui/react';
 import {ChevronDownIcon, CloseIcon, HamburgerIcon} from '@chakra-ui/icons';
+import {useRouter} from 'next/router';
 
 export default function Navigation() {
 	const {isOpen, onToggle} = useDisclosure();
+	const router = useRouter();
 
 	return (
 		<Box>
@@ -76,6 +78,7 @@ export default function Navigation() {
 						fontWeight={600}
 						color={'white'}
 						bg={'green.400'}
+						onClick={() => router.push('/sign-up')}
 						_hover={{
 							bg: 'green.600'
 						}}>
