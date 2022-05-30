@@ -1,7 +1,7 @@
 import {Connector, useConnect} from 'wagmi';
 import {useEffect, useState} from 'react';
-import {VStack} from '@chakra-ui/react';
-import { FcGoogle } from 'react-icons/fc';
+import {Icon, VStack} from '@chakra-ui/react';
+import MetaMaskIcon from '../mtmsk-icon/mtmsk-icon';
 import CertIconButton from '../icon-button/icon-button';
 
 export function WalletList(props: any) {
@@ -17,10 +17,11 @@ export function WalletList(props: any) {
 		<VStack>
 			{connectoroes.map((connector) => (
 				<CertIconButton
+					iconSpacing="1rem"
 					disabled={!connector.ready}
 					key={connector.id}
 					title={connector.name}
-					icon={<FcGoogle/>}
+					icon={<MetaMaskIcon/>}
 					onClick={() => connect(connector)}
 				/>
 			))}
