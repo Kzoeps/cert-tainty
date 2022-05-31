@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
-import { ethers } from 'ethers';
+import {ethers} from 'ethers';
 
 
 /**
@@ -20,9 +20,7 @@ async function GenerateNonce(req: NextApiRequest, res: NextApiResponse) {
 		[nonce, wallet_address]
 	);
 	res.status(200).json({
-		data: {
-			hash
-		}
+		hash
 	})
 }
 

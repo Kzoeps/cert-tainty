@@ -3,7 +3,7 @@ import React, {ReactElement} from 'react';
 
 export interface IconButtonProps extends ButtonProps{
 	title: string;
-	icon: ReactElement;
+	icon: ReactElement | undefined;
 }
 
 export default function CertIconButton({title, icon, ...restProps}: IconButtonProps) {
