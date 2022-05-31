@@ -19,6 +19,7 @@ import {Form, Formik} from 'formik';
 export default function VerificationForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const handleSubmit = async (values: VerificationFormI) => {
+		console.log(values);
 	};
 
 	return (
@@ -49,19 +50,19 @@ export default function VerificationForm() {
 										<Box>
 											<FormControl id="firstName" isRequired>
 												<FormLabel>First Name</FormLabel>
-												<Input type="text"/>
+												<Input name="firstName" onChange={formik.handleChange} type="text"/>
 											</FormControl>
 										</Box>
 										<Box>
 											<FormControl id="lastName" isRequired>
 												<FormLabel>Last Name</FormLabel>
-												<Input type="text"/>
+												<Input name="lastName" onChange={formik.handleChange} type="text"/>
 											</FormControl>
 										</Box>
 									</HStack>
 									<FormControl id="email" isRequired>
 										<FormLabel>Email address</FormLabel>
-										<Input type="email"/>
+										<Input name="email" onChange={formik.handleChange} type="email"/>
 									</FormControl>
 									{/*						<FormControl id="password" isRequired>
 							<FormLabel>Password</FormLabel>
