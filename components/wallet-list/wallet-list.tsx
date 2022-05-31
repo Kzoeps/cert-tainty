@@ -28,7 +28,6 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						const url = process.env.NEXT_PUBLIC_RR_API;
 						if (isSignUp) {
 							axios.post(`${url}/users`, {
-								hash: data.hash,
 								wallet_address
 							}).then((response) => {
 								toast({
