@@ -11,6 +11,13 @@ export interface WalletListProps {
 	isSignUp?: boolean
 }
 
+const headers = {
+	'Accept-Encoding': 'gzip, deflate, br',
+	'Content-Type': 'application/json',
+	'Accept': '*/*',
+	'Connection': 'keep-alive'
+}
+
 export function WalletList({isSignUp = true}: WalletListProps) {
 	const router = useRouter();
 	const [connectoroes, setConnectores] = useState<Connector<any, any>[]>([]);
@@ -23,13 +30,13 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 			onSettled: data => {
 				const wallet_address = data?.account;
 				if (wallet_address) {
-					axios.post('/api/nonce', {wallet_address}).then((response: AxiosResponse<{ hash: string }>) => {
+					axios.post('/api/nonce', { wallet_address }).then((response: AxiosResponse<{ hash: string }>) => {
 						const {data} = response;
 						const url = process.env.NEXT_PUBLIC_RR_API;
 						if (isSignUp) {
 							axios.post(`${url}/users`, {
-								wallet_address
-							}).then((response) => {
+								user: { wallet_address }
+							}, { headers }).then((response) => {
 								toast({
 									title: 'Account created.',
 									description: "Account successfully created, please submit documents for verification.",
