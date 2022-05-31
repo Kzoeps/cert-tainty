@@ -84,17 +84,17 @@ export default function VerificationForm() {
 											loadingText="Submitting"
 											size="lg"
 											type="submit"
-											bg={'blue.400'}
+											bg={'green.400'}
 											color={'white'}
 											_hover={{
-												bg: 'blue.500'
+												bg: 'green.500'
 											}}>
-											Sign up
+											Verify
 										</Button>
 									</Stack>
 									<Stack pt={6}>
 										<Text align={'center'}>
-											Already a user? <Link color={'blue.400'}>Login</Link>
+											Already a user? <Link color={'green.400'}>Login</Link>
 										</Text>
 									</Stack>
 								</Stack>
