@@ -1,6 +1,6 @@
 import {Connector, useConnect} from 'wagmi';
 import {useEffect, useState} from 'react';
-import {Icon, VStack} from '@chakra-ui/react';
+import {VStack} from '@chakra-ui/react';
 import MetaMaskIcon from '../mtmsk-icon/mtmsk-icon';
 import CertIconButton from '../icon-button/icon-button';
 

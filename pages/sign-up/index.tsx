@@ -55,7 +55,7 @@ export default function SignUp() {
 						Senior web designers{' '}
 						<Text
 							as={'span'}
-							bgGradient="linear(to-r, red.400,pink.400)"
+							bgGradient="linear(to-r, green.400,green.800)"
 							bgClip="text">
 							&
 						</Text>{' '}
@@ -77,7 +77,7 @@ export default function SignUp() {
 										height: 'full',
 										rounded: 'full',
 										transform: 'scale(1.125)',
-										bgGradient: 'linear(to-bl, red.400,pink.400)',
+										bgGradient: 'linear(to-bl, green.400,green.800)',
 										position: 'absolute',
 										zIndex: -1,
 										top: 0,
@@ -130,7 +130,7 @@ export default function SignUp() {
 							Join our team
 							<Text
 								as={'span'}
-								bgGradient="linear(to-r, red.400,pink.400)"
+								bgGradient="linear(to-r, green.400,green.800)"
 								bgClip="text">
 								!
 							</Text>
@@ -142,46 +142,6 @@ export default function SignUp() {
 					</Stack>
 					<Box as={'form'} mt={10}>
 						<WalletList/>
-						<Stack spacing={4}>
-							<Input
-								placeholder="Firstname"
-								bg={'gray.100'}
-								border={0}
-								color={'gray.500'}
-								_placeholder={{
-									color: 'gray.500',
-								}}
-							/>
-							<Input
-								placeholder="firstname@lastname.io"
-								bg={'gray.100'}
-								border={0}
-								color={'gray.500'}
-								_placeholder={{
-									color: 'gray.500',
-								}}
-							/>
-							<Input
-								placeholder="+1 (___) __-___-___"
-								bg={'gray.100'}
-								border={0}
-								color={'gray.500'}
-								_placeholder={{
-									color: 'gray.500',
-								}}
-							/>
-						</Stack>
-						<Button
-							fontFamily={'heading'}
-							mt={8}
-							w={'full'}
-							bg="green.400"
-							color={'white'}
-							_hover={{
-								bg: 'green.600'
-							}}>
-							Submit
-						</Button>
 					</Box>
 					form
 				</Stack>
