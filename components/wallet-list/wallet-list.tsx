@@ -1,4 +1,5 @@
 import {Connector, useAccount, useConnect, useDisconnect} from 'wagmi';
+import { useToast } from '@chakra-ui/react'
 import {useEffect, useState} from 'react';
 import {Text, VStack} from '@chakra-ui/react';
 import MetaMaskIcon from '../mtmsk-icon/mtmsk-icon';
@@ -14,6 +15,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	const [isConnected, setIsConnected] = useState<string | undefined>('loading');
 	const {data, isLoading, isError} = useAccount();
 	const {disconnect} = useDisconnect();
+	const toast = useToast();
 	const {connect, connectors, error, isConnecting, pendingConnector} =
 		useConnect({
 			onSettled: data => {
@@ -27,7 +29,12 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 								hash: data.hash,
 								wallet_address
 							}).then((response) => {
-								console.log(response);
+								toast({
+									title: 'Account created.',
+									description: "Account successfully created, please submit documents for verification.",
+									status: 'success',
+									isClosable: true,
+								})
 							})
 						}
 						console.log(process.env.NEXT_PUBLIC_RR_API);
