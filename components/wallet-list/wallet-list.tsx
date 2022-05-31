@@ -17,7 +17,6 @@ export function WalletList(props: any) {
 				if (wallet_address) {
 					axios.post('/api/nonce', {wallet_address}).then((response: AxiosResponse<{ hash: string }>) => {
 						const {data} = response;
-						console.log(data.hash);
 					});
 				}
 			}
@@ -75,10 +74,3 @@ export function WalletList(props: any) {
 		</VStack>
 	)
 }
-
-{/*					{connector.name}
-					{!connector.ready && ' (unsupported)'}
-					{isConnecting &&
-					connector.id === pendingConnector?.id &&
-					' (connecting)'}
-				</CertIconButton>*/}
