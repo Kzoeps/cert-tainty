@@ -5,7 +5,11 @@ import MetaMaskIcon from '../mtmsk-icon/mtmsk-icon';
 import CertIconButton from '../icon-button/icon-button';
 import axios, {AxiosResponse} from 'axios';
 
-export function WalletList(props: any) {
+export interface WalletListProps {
+	isSignUp?: boolean
+}
+
+export function WalletList({isSignUp = true}: WalletListProps) {
 	const [connectoroes, setConnectores] = useState<Connector<any, any>[]>([]);
 	const [isConnected, setIsConnected] = useState<string | undefined>('loading');
 	const {data, isLoading, isError} = useAccount();
@@ -17,6 +21,16 @@ export function WalletList(props: any) {
 				if (wallet_address) {
 					axios.post('/api/nonce', {wallet_address}).then((response: AxiosResponse<{ hash: string }>) => {
 						const {data} = response;
+						const url = process.env.NEXT_PUBLIC_RR_API;
+						if (isSignUp) {
+							axios.post(`${url}/users`, {
+								hash: data.hash,
+								wallet_address
+							}).then((response) => {
+								console.log(response);
+							})
+						}
+						console.log(process.env.NEXT_PUBLIC_RR_API);
 					});
 				}
 			}
