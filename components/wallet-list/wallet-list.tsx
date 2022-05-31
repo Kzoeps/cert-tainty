@@ -5,12 +5,14 @@ import {Text, VStack} from '@chakra-ui/react';
 import MetaMaskIcon from '../mtmsk-icon/mtmsk-icon';
 import CertIconButton from '../icon-button/icon-button';
 import axios, {AxiosResponse} from 'axios';
+import {useRouter} from 'next/router';
 
 export interface WalletListProps {
 	isSignUp?: boolean
 }
 
 export function WalletList({isSignUp = true}: WalletListProps) {
+	const router = useRouter();
 	const [connectoroes, setConnectores] = useState<Connector<any, any>[]>([]);
 	const [isConnected, setIsConnected] = useState<string | undefined>('loading');
 	const {data, isLoading, isError} = useAccount();
@@ -34,7 +36,8 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 									description: "Account successfully created, please submit documents for verification.",
 									status: 'success',
 									isClosable: true,
-								})
+								});
+								void router.push('/sign-up/verification');
 							})
 						}
 						console.log(process.env.NEXT_PUBLIC_RR_API);
