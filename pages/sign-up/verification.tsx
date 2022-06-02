@@ -136,11 +136,6 @@ export default function VerificationForm() {
 												Verify
 											</Button>
 										</Stack>
-										<Stack pt={6}>
-											<Text align={'center'}>
-												Already a user? <Link color={'green.400'}>Login</Link>
-											</Text>
-										</Stack>
 									</Stack>
 								</Box>
 							</Stack>
