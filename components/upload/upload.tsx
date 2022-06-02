@@ -6,20 +6,25 @@ import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 
 export interface ParchmentProps {
-	uploadProps: UploadProps
+	uploadProps: UploadProps,
+	title?: string,
+	description?: string
 }
 
-const ParchmentUpload: React.FC<ParchmentProps> = ({uploadProps}) => (
+const ParchmentUpload: React.FC<ParchmentProps> = ({uploadProps, title, description}) => (
 	<Dragger {...uploadProps}>
 		<p className="ant-upload-drag-icon">
 			<InboxOutlined/>
 		</p>
-		<p className="ant-upload-text">Click or drag file to this area to upload</p>
+		<p className="ant-upload-text">{title}</p>
 		<p className="ant-upload-hint">
-			Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-			band files
+			{description}
 		</p>
 	</Dragger>
 );
+ParchmentUpload.defaultProps = {
+	title: 'Click or drag file to this area to upload',
+	description: 'Please upload your supporting documents for verification. Ex: School establishment certificate, MOE approval certificate'
+}
 
 export default ParchmentUpload
