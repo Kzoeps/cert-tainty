@@ -41,7 +41,7 @@ const avatars = [
 
 export default function SignUp() {
 	return (
-		<Box position={'relative'}>
+		<Box bg="gray.50" position={'relative'}>
 			<Container
 				as={SimpleGrid}
 				maxW={'7xl'}
@@ -117,7 +117,7 @@ export default function SignUp() {
 					</Stack>
 				</Stack>
 				<Stack
-					bg={'gray.50'}
+					bg={'gray.200'}
 					rounded={'xl'}
 					p={{ base: 4, sm: 6, md: 8 }}
 					spacing={{ base: 8 }}

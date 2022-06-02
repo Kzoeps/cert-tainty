@@ -14,7 +14,7 @@ export default function CertIconButton({title, icon, ...restProps}: IconButtonPr
 				style={{width: '100%'}}
 				w={'full'}
 				maxW={'md'}
-				variant={'outline'}
+				colorScheme="green"
 				rightIcon={icon}>
 				<Center>
 					<Text>{title}</Text>
