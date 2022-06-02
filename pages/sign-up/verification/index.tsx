@@ -14,15 +14,16 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import {useState} from 'react';
-import {VERIFICATION_FORM_INIT, VerificationFormI} from './_auth.models';
+import {VERIFICATION_FORM_INIT, VerificationFormI} from '../_auth.models';
 import {Form, Formik} from 'formik';
-import ParchmentUpload from '../../components/upload/upload';
-import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
+import ParchmentUpload from '../../../components/upload/upload';
+import {UPLOAD_PROPS} from '../../../components/upload/upload.constants';
 import {UploadProps} from 'antd';
-import {createRef, uploadFile} from '../../api/file-upload.api';
+import {createRef, uploadFile} from '../../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
 import {useAccount} from 'wagmi';
-import {SUCCESS_T_CONST} from '../../models/parchment.constants';
+import {SUCCESS_T_CONST} from '../../../models/parchment.constants';
+import {useRouter} from 'next/router';
 
 const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined>=> {
 	if (wallet_address) {
@@ -38,6 +39,7 @@ export default function VerificationForm() {
 	const [files, setFiles] = useState<File[]>([]);
 	const {data: accountData}= useAccount();
 	const toast = useToast();
+	const router = useRouter();
 	const uploadProps: UploadProps = {
 		...UPLOAD_PROPS,
 		beforeUpload: (file) => {
@@ -46,17 +48,17 @@ export default function VerificationForm() {
 	}
 	const handleSubmit = async (values: VerificationFormI) => {
 		setIsLoading(true);
+		console.log(values);
 		const fileUrls = [];
 		for (const file of files) {
 			fileUrls.push(await uploadVerifFile(file, accountData?.address))
 		}
-		console.log(fileUrls);
 		toast({
 			...SUCCESS_T_CONST,
 			title: 'Upload Successful',
-			description: 'We will take a short time to verify your documents. Confirmation or rejection will be sent to the email entered above'
-		})
+		});
 		setIsLoading(false);
+		void router.push(`verification/success`)
 	};
 
 	return (
@@ -104,7 +106,7 @@ export default function VerificationForm() {
 										</FormControl>
 										<FormControl id="school" isRequired>
 											<FormLabel>	Institution Name</FormLabel>
-											<Input name="institutionName" onChange={formik.handleChange} type="email"/>
+											<Input name="institutionName" onChange={formik.handleChange}/>
 										</FormControl>
 										<ParchmentUpload uploadProps={uploadProps}/>
 										{/*						<FormControl id="password" isRequired>
@@ -133,7 +135,7 @@ export default function VerificationForm() {
 												_hover={{
 													bg: 'green.500'
 												}}>
-												Verify
+												Submit
 											</Button>
 										</Stack>
 									</Stack>
