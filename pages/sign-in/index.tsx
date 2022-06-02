@@ -127,7 +127,7 @@ export default function SignUp() {
 							color={'gray.800'}
 							lineHeight={1.1}
 							fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
-							Join our team
+							Welcome Back
 							<Text
 								as={'span'}
 								bgGradient="linear(to-r, green.400,green.800)"
