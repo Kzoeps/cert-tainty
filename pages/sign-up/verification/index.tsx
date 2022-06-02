@@ -58,7 +58,7 @@ export default function VerificationForm() {
 			title: 'Upload Successful',
 		});
 		setIsLoading(false);
-		void router.push(`verification/success`)
+		await router.push(`verification/success`)
 	};
 
 	return (
