@@ -5,6 +5,7 @@ import Navigation from '../components/navigation/navigation';
 import Footer from '../components/footer/footer';
 import {WagmiConfig} from 'wagmi';
 import {client} from '../wagmi.config';
+import 'antd/dist/antd.css';
 
 function MyApp({Component, pageProps}: AppProps) {
 	return (

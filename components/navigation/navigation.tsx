@@ -69,7 +69,8 @@ export default function Navigation() {
 						fontSize={'sm'}
 						fontWeight={400}
 						variant={'link'}
-						href={'#'}>
+						onClick={() => router.push(`/sign-in`)}
+						>
 						Sign In
 					</Button>
 					<Button

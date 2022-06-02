@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
   '@chakra-ui/icons': ^2.0.1
   '@chakra-ui/react': ^2.1.2
   '@emotion/react': ^11
@@ -24,6 +25,7 @@ specifiers:
   wagmi: ^0.4.4
 
 dependencies:
+  '@ant-design/icons': 4.7.0_ef5jwxihqo6n7gxfmzogljlgcm
   '@chakra-ui/icons': 2.0.1_react@18.1.0
   '@chakra-ui/react': 2.1.2_tnpdzymn4ptzzmvr3zszy67sx4
   '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji

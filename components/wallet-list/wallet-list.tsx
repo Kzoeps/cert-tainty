@@ -74,7 +74,6 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						} else {
 							signMessage({message: hash});
 						}
-						console.log(process.env.NEXT_PUBLIC_RR_API);
 					});
 				}
 			}

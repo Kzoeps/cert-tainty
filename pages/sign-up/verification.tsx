@@ -10,16 +10,51 @@ import {
 	Link,
 	Stack,
 	Text,
+	useToast,
 	useColorModeValue
 } from '@chakra-ui/react';
 import {useState} from 'react';
 import {VERIFICATION_FORM_INIT, VerificationFormI} from './_auth.models';
 import {Form, Formik} from 'formik';
+import ParchmentUpload from '../../components/upload/upload';
+import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
+import {UploadProps} from 'antd';
+import {createRef, uploadFile} from '../../api/file-upload.api';
+import {getDownloadURL} from 'firebase/storage';
+import {useAccount} from 'wagmi';
+import {SUCCESS_T_CONST} from '../../models/parchment.constants';
+
+const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined>=> {
+	if (wallet_address) {
+		const ref = createRef(`verification/${wallet_address}/${file.name}`);
+		const uploadedFile = await uploadFile(ref, file);
+		return await getDownloadURL(uploadedFile.ref);
+	}
+	return undefined;
+}
 
 export default function VerificationForm() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [files, setFiles] = useState<File[]>([]);
+	const {data: accountData}= useAccount();
+	const toast = useToast();
+	const uploadProps: UploadProps = {
+		...UPLOAD_PROPS,
+		beforeUpload: (file) => {
+			setFiles((files) => [...files, file as File])
+		}
+	}
 	const handleSubmit = async (values: VerificationFormI) => {
-		console.log(values);
+		const fileUrls = [];
+		for (const file of files) {
+			fileUrls.push(await uploadVerifFile(file, accountData?.address))
+		}
+		console.log(fileUrls);
+		toast({
+			...SUCCESS_T_CONST,
+			title: 'Upload Successful',
+			description: 'We will take a short time to verify your documents. Confirmation or rejection will be sent to the email entered above'
+		})
 	};
 
 	return (
@@ -64,6 +99,7 @@ export default function VerificationForm() {
 										<FormLabel>Email address</FormLabel>
 										<Input name="email" onChange={formik.handleChange} type="email"/>
 									</FormControl>
+									<ParchmentUpload uploadProps={uploadProps}/>
 									{/*						<FormControl id="password" isRequired>
 							<FormLabel>Password</FormLabel>
 							<InputGroup>
