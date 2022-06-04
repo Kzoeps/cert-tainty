@@ -136,21 +136,6 @@ export default function VerificationForm() {
 											<Input name="institutionName" onChange={formik.handleChange}/>
 										</FormControl>
 										<ParchmentUpload uploadProps={uploadProps}/>
-										{/*						<FormControl id="password" isRequired>
-							<FormLabel>Password</FormLabel>
-							<InputGroup>
-								<Input type={showPassword ? 'text' : 'password'} />
-								<InputRightElement h={'full'}>
-									<Button
-										variant={'ghost'}
-										onClick={() =>
-											setShowPassword((showPassword) => !showPassword)
-										}>
-										{showPassword ? <ViewIcon /> : <ViewOffIcon />}
-									</Button>
-								</InputRightElement>
-							</InputGroup>
-						</FormControl>*/}
 										<Stack spacing={10} pt={2}>
 											<Button
 												isLoading={isLoading}
