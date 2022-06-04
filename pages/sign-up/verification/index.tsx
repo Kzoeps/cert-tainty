@@ -89,7 +89,7 @@ export default function VerificationForm() {
 			const kycStatus = response.data.profile.kycStatus as KycStatusEnum;
 			const route = KYC_PROGRESS_ROUTES[kycStatus];
 			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
-				// void router.push(`verification/${route}`);
+				void router.push(`verification/${route}`);
 			}
 		});
 	}, [router, refetch, verifLoading]);
