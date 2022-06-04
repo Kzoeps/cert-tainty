@@ -23,6 +23,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	const router = useRouter();
 	const [connectoroes, setConnectores] = useState<Connector<any, any>[]>([]);
 	const [isConnected, setIsConnected] = useState<string | undefined>('loading');
+	const [showLoading, setShowLoading] = useState<boolean>(false);
 	const walletRef = useRef<string | undefined>(undefined);
 	const nonceRef = useRef<string | undefined>(undefined);
 	const URL = process.env.NEXT_PUBLIC_RR_API;
@@ -30,6 +31,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	const {signMessage} = useSignMessage({
 		onSuccess(signatureData,variables) {
 			if (walletRef.current && nonceRef.current) {
+				setShowLoading(true);
 				axios.post(`${URL}/users/sign_in`, {
 					user: {
 						wallet_address: walletRef.current,
@@ -42,6 +44,8 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						title: 'Logged in successfully',
 						...SUCCESS_T_CONST
 					})
+				}).finally(() => {
+					setShowLoading(false)
 				})
 			}
 		}
@@ -56,6 +60,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 				const wallet_address = data?.account;
 				walletRef.current = wallet_address;
 				if (wallet_address) {
+					setShowLoading(true);
 					axios.post('/api/nonce', { wallet_address }).then((response: AxiosResponse<{ hash: string }>) => {
 						const {data: {hash}} = response;
 						nonceRef.current = hash;
@@ -74,7 +79,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						} else {
 							signMessage({message: hash});
 						}
-					});
+					}).finally(() => setShowLoading(false));
 				}
 			}
 		});
@@ -110,7 +115,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	if (isConnected) {
 		return (
 			<VStack>
-				<CertIconButton onClick={() => disconnect()} title="Disconnect" icon={undefined}/>
+				<CertIconButton isLoading={showLoading} onClick={() => disconnect()} title="Disconnect" icon={undefined}/>
 			</VStack>
 		);
 	}
@@ -118,6 +123,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 		<VStack>
 			{connectoroes.map((connector) => (
 				<CertIconButton
+					isLoading={showLoading}
 					iconSpacing="1rem"
 					disabled={!connector.ready}
 					key={connector.id}
