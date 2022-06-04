@@ -7,6 +7,10 @@ import {
 	Heading,
 	HStack,
 	Input,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -51,7 +55,7 @@ export default function VerificationForm() {
 			setFiles((files) => [...files, file as File]);
 		}
 	};
-	const handleSubmit = async ({firstName, lastName, institutionName, email}: VerificationFormI) => {
+	const handleSubmit = async ({firstName, lastName, institutionName, email, institutionType}: VerificationFormI) => {
 		setIsLoading(true);
 		const fileUrls = [];
 		for (const file of files) {
@@ -66,7 +70,7 @@ export default function VerificationForm() {
 						firstName,
 						lastName,
 						institutionName,
-						institutionType: InstitutionEnum.college
+						institutionType
 					}
 				}
 			}
@@ -85,7 +89,7 @@ export default function VerificationForm() {
 			const kycStatus = response.data.profile.kycStatus as KycStatusEnum;
 			const route = KYC_PROGRESS_ROUTES[kycStatus];
 			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
-				void router.push(`verification/${route}`);
+				// void router.push(`verification/${route}`);
 			}
 		});
 	}, [router, refetch, verifLoading]);
@@ -132,9 +136,21 @@ export default function VerificationForm() {
 											<Input name="email" onChange={formik.handleChange} type="email"/>
 										</FormControl>
 										<FormControl id="school" isRequired>
-											<FormLabel>	Institution Name</FormLabel>
+											<FormLabel> Institution Name</FormLabel>
 											<Input name="institutionName" onChange={formik.handleChange}/>
 										</FormControl>
+										<Menu>
+											<MenuButton>
+												<FormControl id="type" isRequired>
+													<FormLabel> Institution Type </FormLabel>
+													<Input value={formik.values.institutionType} name="institutionName"/>
+												</FormControl>
+											</MenuButton>
+											<MenuList>
+												<MenuItem onClick={() => formik.setFieldValue('institutionType', InstitutionEnum.school)}  value={InstitutionEnum.school}>School</MenuItem>
+												<MenuItem onClick={() => formik.setFieldValue('institutionType', InstitutionEnum.college)} value={InstitutionEnum.college}>College</MenuItem>
+											</MenuList>
+										</Menu>
 										<ParchmentUpload uploadProps={uploadProps}/>
 										<Stack spacing={10} pt={2}>
 											<Button
