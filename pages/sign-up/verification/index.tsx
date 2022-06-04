@@ -14,7 +14,7 @@ import {
 	useToast
 } from '@chakra-ui/react';
 import {useState} from 'react';
-import {VERIFICATION_FORM_INIT, VerificationFormI} from '../_auth.models';
+import {VERIFICATION_FORM_INIT, VerificationFormI} from '../../../models/_auth.models';
 import {Form, Formik} from 'formik';
 import ParchmentUpload from '../../../components/upload/upload';
 import {UPLOAD_PROPS} from '../../../components/upload/upload.constants';
