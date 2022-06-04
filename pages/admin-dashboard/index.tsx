@@ -14,11 +14,11 @@ interface DataType {
 }
 
 const gData = [
-    { name: 'Page A', uv: 100, pv: 2400, amt: 2500 },
-    { name: 'Page A', uv: 300, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 300, pv: 2400, amt: 200 },
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 200, pv: 2400, amt: 2400 }
+    { name: 'Page A', uv: 100, pv: 20, amt: 2500 },
+    { name: 'Page B', uv: 300, pv: 2400, amt: 99 },
+    { name: 'Page C', uv: 300, pv: 200, amt: 200 },
+    { name: 'Page D', uv: 400, pv: 400, amt: 2400 },
+    { name: 'Page E', uv: 200, pv: 2400, amt: 2400 }
 ];
 
 
@@ -103,10 +103,10 @@ const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter
 };
 
 const AdminDashboard: React.FC = () => {
-    const [lineData, setData] = useState<any>(undefined);
-    useEffect(() => {
-        setData(gData);
-    }, [])
+    const [ lineData, setData ] = useState<any>( undefined );
+    useEffect( () => {
+        setData( gData );
+    }, [] )
     return (
         <Box>
             <Box m='32px'>
@@ -123,17 +123,17 @@ const AdminDashboard: React.FC = () => {
                                     Total Minting
                                 </Text>
                             </Box>
-                            {lineData?.length && <LineChart
-                                width={550}
-                                height={400}
-                                data={lineData}
-                                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                            { lineData?.length && <LineChart
+                                width={ 550 }
+                                height={ 400 }
+                                data={ lineData }
+                                margin={ { top: 5, right: 20, left: 10, bottom: 5 } }
                             >
-                                <XAxis dataKey="name" />
-                                <Tooltip />
-                                <CartesianGrid stroke="#f5f5f5" />
-                                <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-                                <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
+                                <XAxis dataKey="name"/>
+                                <Tooltip/>
+                                <CartesianGrid stroke="#f5f5f5"/>
+                                <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={ 0 }/>
+                                <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={ 1 }/>
                             </LineChart>
                             }
                         </Card>
@@ -142,9 +142,9 @@ const AdminDashboard: React.FC = () => {
                                 <Box sx={ { width: 'fit-content' } }>
                                     <Text fontSize='18px'>Total Earning</Text>
                                     <Box my='8px'>
-                                       <Text fontWeight='bold'>
-                                           Nu. 287,493
-                                       </Text>
+                                        <Text fontWeight='bold'>
+                                            Nu. 287,493
+                                        </Text>
                                         <Text>
                                             1.4% Since Last Month
                                         </Text>
@@ -153,9 +153,9 @@ const AdminDashboard: React.FC = () => {
                                 <hr/>
                                 <Box sx={ { width: 'fit-content' } } my='18px'>
                                     <SimpleGrid>
-                                       <Text fontWeight='18px'>
-                                           Total Subscription
-                                       </Text>
+                                        <Text fontWeight='18px'>
+                                            Total Subscription
+                                        </Text>
                                         <Box my='12px'>
                                             <Text fontWeight='bold'>
                                                 $87,493
@@ -164,7 +164,7 @@ const AdminDashboard: React.FC = () => {
                                                 5.43% Since Last Month
                                             </Text>
                                             <Box my='28px'>
-                                                <Example />
+                                                <Example/>
                                             </Box>
                                         </Box>
                                     </SimpleGrid>
@@ -230,8 +230,19 @@ const AdminDashboard: React.FC = () => {
                         </Card>
                     </SimpleGrid>
                 </Box>
-            </Center>
-            <Center>
+            </Center><Center>
+            <Box width='90%' my='24px'>
+                <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
+                    <Card>
+                        <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
+                    </Card>
+                    <Card>
+                        <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
+                    </Card>
+                </SimpleGrid>
+            </Box>
+        </Center>
+            <Center width='100%'>
                 <Box width='90%'>
                     <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
                 </Box>
