@@ -7,3 +7,11 @@ export const VERIFY_KYC = gql`
 		}
 	}
 `
+
+export const QUERY_VERIFICATION_STATUS = gql`
+	query verificationStatus {
+		profile {
+			kycStatus
+		}
+	}
+`

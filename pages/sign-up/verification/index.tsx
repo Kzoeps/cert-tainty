@@ -12,7 +12,7 @@ import {
 	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {VERIFICATION_FORM_INIT, VerificationFormI} from '../../../models/_auth.models';
 import {Form, Formik} from 'formik';
 import ParchmentUpload from '../../../components/upload/upload';
@@ -23,9 +23,9 @@ import {getDownloadURL} from 'firebase/storage';
 import {useAccount} from 'wagmi';
 import {SUCCESS_T_CONST} from '../../../models/parchment.constants';
 import {useRouter} from 'next/router';
-import {useMutation} from '@apollo/client';
-import {VERIFY_KYC} from '../../../api/kyc.api';
-import {InstitutionEnum} from '../../../models/parchment.models';
+import {useMutation, useQuery} from '@apollo/client';
+import {QUERY_VERIFICATION_STATUS, VERIFY_KYC} from '../../../api/kyc.api';
+import {InstitutionEnum, KYC_PROGRESS_ROUTES, KYC_ROUTE_ENUMS, KycStatusEnum} from '../../../models/parchment.models';
 
 const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -38,8 +38,10 @@ const uploadVerifFile = async (file: File, wallet_address: string | undefined): 
 
 export default function VerificationForm() {
 	const [isLoading, setIsLoading] = useState(false);
+	const [initialLoad, setInitialLoad] = useState(false);
 	const [files, setFiles] = useState<File[]>([]);
 	const [updateKyc, {data, loading, error}] = useMutation(VERIFY_KYC);
+	const {loading: verifLoading, refetch} = useQuery(QUERY_VERIFICATION_STATUS);
 	const {data: accountData} = useAccount();
 	const toast = useToast();
 	const router = useRouter();
@@ -76,6 +78,17 @@ export default function VerificationForm() {
 		setIsLoading(false);
 		await router.push(`verification/success`);
 	};
+	useEffect(() => {
+		if (verifLoading) setInitialLoad(true);
+		refetch().then((response) => {
+			setInitialLoad(false);
+			const kycStatus = response.data.profile.kycStatus as KycStatusEnum;
+			const route = KYC_PROGRESS_ROUTES[kycStatus];
+			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
+				void router.push(`verification/${route}`);
+			}
+		});
+	}, [router, refetch, verifLoading]);
 
 	/* eslint-disable */
 	return (
@@ -83,7 +96,8 @@ export default function VerificationForm() {
 			<Formik initialValues={VERIFICATION_FORM_INIT} onSubmit={handleSubmit}>
 				{(formik) => (
 					<Form>
-						<Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
+						<Flex minH={'100vh'} align={'center'} justify={'center'}
+							  bg={useColorModeValue('gray.50', 'gray.800')}>
 							<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
 								<Stack align={'center'}>
 									<Heading fontSize={'4xl'} textAlign={'center'}>
