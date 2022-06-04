@@ -1,18 +1,16 @@
 import {
-	Box,
-	Flex,
-	Stack,
-	Heading,
-	Text,
-	Container,
-	Input,
-	Button,
-	SimpleGrid,
 	Avatar,
 	AvatarGroup,
-	useBreakpointValue,
-	IconProps,
+	Box,
+	Container,
+	Flex,
+	Heading,
 	Icon,
+	IconProps,
+	SimpleGrid,
+	Stack,
+	Text,
+	useBreakpointValue
 } from '@chakra-ui/react';
 import {WalletList} from '../../components/wallet-list/wallet-list';
 
@@ -63,28 +61,32 @@ export default function SignUp() {
 					</Heading>
 					<Stack direction={'row'} spacing={4} align={'center'}>
 						<AvatarGroup>
-							{avatars.map((avatar) => (
-								<Avatar
-									key={avatar.name}
-									name={avatar.name}
-									src={avatar.url}
-									size={useBreakpointValue({ base: 'md', md: 'lg' })}
-									position={'relative'}
-									zIndex={2}
-									_before={{
-										content: '""',
-										width: 'full',
-										height: 'full',
-										rounded: 'full',
-										transform: 'scale(1.125)',
-										bgGradient: 'linear(to-bl, green.400,green.800)',
-										position: 'absolute',
-										zIndex: -1,
-										top: 0,
-										left: 0,
-									}}
-								/>
-							))}
+							{avatars.map((avatar) => {
+								/* eslint-disable */
+								return (
+									<Avatar
+										key={avatar.name}
+										name={avatar.name}
+										src={avatar.url}
+										size={useBreakpointValue({base: 'md', md: 'lg'})}
+										position={'relative'}
+										zIndex={2}
+										_before={{
+											content: '""',
+											width: 'full',
+											height: 'full',
+											rounded: 'full',
+											transform: 'scale(1.125)',
+											bgGradient: 'linear(to-bl, green.400,green.800)',
+											position: 'absolute',
+											zIndex: -1,
+											top: 0,
+											left: 0
+										}}
+									/>
+								)
+								/* eslint-disable */
+							})}
 						</AvatarGroup>
 						<Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
 							+

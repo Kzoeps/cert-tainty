@@ -61,16 +61,13 @@ export default function VerificationForm() {
 		await router.push(`verification/success`)
 	};
 
+	/* eslint-disable */
 	return (
 		<>
 			<Formik initialValues={VERIFICATION_FORM_INIT} onSubmit={handleSubmit}>
 				{(formik) => (
 					<Form>
-						<Flex
-							minH={'100vh'}
-							align={'center'}
-							justify={'center'}
-							bg={useColorModeValue('gray.50', 'gray.800')}>
+						<Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
 							<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
 								<Stack align={'center'}>
 									<Heading fontSize={'4xl'} textAlign={'center'}>
@@ -147,4 +144,5 @@ export default function VerificationForm() {
 			</Formik>
 		</>
 	);
+	/* eslint-disable */
 }
