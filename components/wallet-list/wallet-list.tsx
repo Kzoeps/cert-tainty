@@ -31,14 +31,13 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 		onSuccess(signatureData,variables) {
 			if (walletRef.current && nonceRef.current) {
 				axios.post(`${URL}/users/sign_in`, {
-					wallet_address: walletRef.current
-				}, {
-					headers: {
+					user: {
 						wallet_address: walletRef.current,
 						message: nonceRef.current,
 						signature: signatureData
 					}
-				}).then((response) => {
+				} ).then((response) => {
+					debugger;
 					toast({
 						title: 'Logged in successfully',
 						...SUCCESS_T_CONST
@@ -63,7 +62,8 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						if (isSignUp) {
 							axios.post(`${URL}/users`, {
 								user: { wallet_address }
-							}, { headers }).then((response) => {
+							}).then((response: AxiosResponse<{ jti: string }>) => {
+								const token = response.data.jti;
 								toast({
 									title: 'Account created.',
 									description: "Account successfully created, please submit documents for verification.",
