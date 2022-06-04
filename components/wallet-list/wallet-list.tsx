@@ -38,12 +38,13 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						message: nonceRef.current,
 						signature: signatureData
 					}
-				} ).then((response) => {
-					debugger;
+				} ).then((response: AxiosResponse<{ jwt_token: string}>) => {
+					const token = response.data.jwt_token;
+					if (token) localStorage.setItem('token', token);
 					toast({
 						title: 'Logged in successfully',
 						...SUCCESS_T_CONST
-					})
+					});
 				}).finally(() => {
 					setShowLoading(false)
 				})
@@ -69,6 +70,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 								user: { wallet_address }
 							}).then((response: AxiosResponse<{ jti: string }>) => {
 								const token = response.data.jti;
+								localStorage.setItem('token', token)
 								toast({
 									title: 'Account created.',
 									description: "Account successfully created, please submit documents for verification.",
