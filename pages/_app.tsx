@@ -6,16 +6,20 @@ import Footer from '../components/footer/footer';
 import {WagmiConfig} from 'wagmi';
 import {client} from '../wagmi.config';
 import 'antd/dist/antd.css';
+import {ApolloProvider} from '@apollo/client';
+import apolloClient from '../apollo-client';
 
 function MyApp({Component, pageProps}: AppProps) {
 	return (
-		<ChakraProvider>
-			<WagmiConfig client={client}>
-				<Navigation/>
-				<Component {...pageProps} />
-				<Footer/>
-			</WagmiConfig>
-		</ChakraProvider>
+		<ApolloProvider client={apolloClient}>
+			<ChakraProvider>
+				<WagmiConfig client={client}>
+					<Navigation/>
+					<Component {...pageProps} />
+					<Footer/>
+				</WagmiConfig>
+			</ChakraProvider>
+		</ApolloProvider>
 	);
 }
 

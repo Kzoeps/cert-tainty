@@ -25,6 +25,7 @@ import {SUCCESS_T_CONST} from '../../../models/parchment.constants';
 import {useRouter} from 'next/router';
 import {useMutation} from '@apollo/client';
 import {VERIFY_KYC} from '../../../api/kyc.api';
+import {InstitutionEnum} from '../../../models/parchment.models';
 
 const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -45,22 +46,35 @@ export default function VerificationForm() {
 	const uploadProps: UploadProps = {
 		...UPLOAD_PROPS,
 		beforeUpload: (file) => {
-			setFiles((files) => [...files, file as File])
+			setFiles((files) => [...files, file as File]);
 		}
-	}
-	const handleSubmit = async (values: VerificationFormI) => {
+	};
+	const handleSubmit = async ({firstName, lastName, institutionName, email}: VerificationFormI) => {
 		setIsLoading(true);
-		console.log(values);
 		const fileUrls = [];
 		for (const file of files) {
-			fileUrls.push(await uploadVerifFile(file, accountData?.address))
+			fileUrls.push(await uploadVerifFile(file, accountData?.address));
 		}
+		await updateKyc({
+			variables: {
+				attributes: {
+					attributes: {
+						documentUrl: fileUrls,
+						emailAddress: email,
+						firstName,
+						lastName,
+						institutionName,
+						institutionType: InstitutionEnum.college
+					}
+				}
+			}
+		});
 		toast({
 			...SUCCESS_T_CONST,
-			title: 'Upload Successful',
+			title: 'Upload Successful'
 		});
 		setIsLoading(false);
-		await router.push(`verification/success`)
+		await router.push(`verification/success`);
 	};
 
 	/* eslint-disable */
