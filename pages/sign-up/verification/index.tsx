@@ -7,7 +7,6 @@ import {
 	Heading,
 	HStack,
 	Input,
-	Link,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -24,20 +23,23 @@ import {getDownloadURL} from 'firebase/storage';
 import {useAccount} from 'wagmi';
 import {SUCCESS_T_CONST} from '../../../models/parchment.constants';
 import {useRouter} from 'next/router';
+import {useMutation} from '@apollo/client';
+import {VERIFY_KYC} from '../../../api/kyc.api';
 
-const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined>=> {
+const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
 		const ref = createRef(`verification/${wallet_address}/${file.name}`);
 		const uploadedFile = await uploadFile(ref, file);
 		return await getDownloadURL(uploadedFile.ref);
 	}
 	return undefined;
-}
+};
 
 export default function VerificationForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [files, setFiles] = useState<File[]>([]);
-	const {data: accountData}= useAccount();
+	const [updateKyc, {data, loading, error}] = useMutation(VERIFY_KYC);
+	const {data: accountData} = useAccount();
 	const toast = useToast();
 	const router = useRouter();
 	const uploadProps: UploadProps = {
