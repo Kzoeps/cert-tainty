@@ -1,36 +1,3 @@
-import { DataType } from './admin.model';
-
-export const TABLE_DUMMY: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        email: 'jigmenlodey@gmail.com',
-        institutionName: 'SomeWhere',
-        institutionType: 'institution type'
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        email: 'jigmenlodey@gmail.com',
-        institutionName: 'SomeWhere',
-        institutionType: 'institution type'
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        email: 'jigmenlodey@gmail.com',
-        institutionName: 'SomeWhere',
-        institutionType: 'institution type'
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        email: 'jigmenlodey@gmail.com',
-        institutionName: 'SomeWhere',
-        institutionType: 'institution type'
-    },
-];
-
 export const TOTAL_MINT = [
     { name: '2017', college: 5, school: 120 },
     { name: '2018', college: 7, school: 170},

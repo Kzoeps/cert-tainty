@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Table } from 'antd';
-import type { ColumnsType, TableProps } from 'antd/lib/table';
+import React from 'react';
+import { Card } from 'antd';
+import type { TableProps } from 'antd/lib/table';
 import { Box, Center, CircularProgress, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
 import Example from '../../components/admin-components/admin.component';
-import { DataType } from './admin.model';
-import { TABLE_DUMMY } from './admin.constant';
 import TotalEarningComponent from '../../components/admin-components/admin-total-earning.component';
 import { TableComponent } from '../../components/table/table.component';
 import { useQuery } from '@apollo/client';
 import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 import { RejectedComponent } from '../../components/table/rejected.component';
-
-
-
+import { DataType } from '../../components/admin-components/admin.model';
 
 const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter, extra ) => {
     console.log( 'params', pagination, filters, sorter, extra );

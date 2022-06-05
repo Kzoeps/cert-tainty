@@ -12,7 +12,7 @@ import { BsPerson } from 'react-icons/bs';
 import { MdOutlinePersonAddDisabled } from 'react-icons/md';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
 import { FiUserCheck } from 'react-icons/fi';
-import { UserData } from '../../pages/admin-dashboard/admin.model';
+import { UserData } from '../admin-components/admin.model';
 
 interface StatsCardProps {
     title: string;

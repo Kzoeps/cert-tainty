@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { TOTAL_MINT } from '../../pages/admin-dashboard/admin.constant';
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis } from 'recharts';
+import { TOTAL_MINT } from './admin.constant';
 
 export function TotalEarningComponent () {
     const [ lineData, setData ] = useState<any>( undefined );

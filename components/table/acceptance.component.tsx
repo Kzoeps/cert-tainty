@@ -14,8 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
-import { UserData } from '../../pages/admin-dashboard/admin.model';
 import { VscOpenPreview } from 'react-icons/vsc';
+import { UserData } from '../admin-components/admin.model';
 
 export function AcceptanceComponent(data: {profiles: UserData[]}) {
     return(

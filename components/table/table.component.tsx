@@ -12,11 +12,11 @@ import {
     Text,
     Link, Center
 } from '@chakra-ui/react';
-import { UserData } from '../../pages/admin-dashboard/admin.model';
 import { VscOpenPreview } from 'react-icons/vsc';
 import { useMutation } from '@apollo/client';
 import { PROFILE_MUTATION } from '../../api/admin.api';
 import { useEffect, useState } from 'react';
+import { UserData } from '../admin-components/admin.model';
 
 export function TableComponent(data: {profiles: UserData[]}) {
     const [action, {data: returnValue, loading}] = useMutation(PROFILE_MUTATION );

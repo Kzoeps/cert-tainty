@@ -6,7 +6,7 @@ import {
     YAxis,
     Tooltip, Area
 } from 'recharts';
-import { TOTAL_EARNING } from '../../pages/admin-dashboard/admin.constant';
+import { TOTAL_EARNING } from './admin.constant';
 
 
 
