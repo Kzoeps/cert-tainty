@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
-import { Box, Center, CircularProgress, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { Box, Center, CircularProgress, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
 import Example from '../../components/admin-components/admin.component';
 import { DataType } from './admin.model';
@@ -200,6 +200,9 @@ const AdminDashboard: React.FC = () => {
             <Center width='100%'>
                 <Box width='90%'>
                     <Card>
+                        <Heading as='h4' size='md' my='12px'>
+                            INSTITUTION
+                        </Heading>
                         <TableComponent/>
                     </Card>
                 </Box>
