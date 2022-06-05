@@ -5,8 +5,9 @@ import { Box, Center, CircularProgress, SimpleGrid, Stack, Text } from '@chakra-
 import BasicStatistics from '../../components/cards/card.component';
 import Example from '../../components/admin-components/admin.component';
 import { DataType } from './admin.model';
-import { TABLE_DUMMY, TOTAL_MINT } from './admin.constant';
+import { TABLE_DUMMY } from './admin.constant';
 import TotalEarningComponent from '../../components/admin-components/admin-total-earning.component';
+import { TableComponent } from '../../components/table/table.component';
 
 
 const columns: ColumnsType<DataType> = [
@@ -37,6 +38,14 @@ const columns: ColumnsType<DataType> = [
         title: 'Email',
         dataIndex: 'email',
         // sorter: ( a, b ) => a.age - b.age,
+    },
+    {
+        title: 'Institution Name',
+        dataIndex: 'institutionName'
+    },
+    {
+        title: 'Institution Type',
+        dataIndex: 'institutionType'
     },
     {
         title: 'Address',
@@ -175,7 +184,8 @@ const AdminDashboard: React.FC = () => {
                         </Card>
                     </SimpleGrid>
                 </Box>
-            </Center><Center>
+            </Center>
+            <Center>
             <Box width='90%' my='24px'>
                 <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
                     <Card>
@@ -189,7 +199,9 @@ const AdminDashboard: React.FC = () => {
         </Center>
             <Center width='100%'>
                 <Box width='90%'>
-                    <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
+                    <Card>
+                        <TableComponent/>
+                    </Card>
                 </Box>
             </Center>
         </Box>
