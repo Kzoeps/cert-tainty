@@ -4,11 +4,10 @@ import {Form, Formik} from 'formik';
 import React, {useState} from 'react';
 import {MINT_FORM_INIT, MintForm} from '../../models/parchment.models';
 import {useMutation, useQuery} from '@apollo/client';
-import {GENERATE_CERTIFICATE, GET_INSTITUTION_NAME, MINT_CERTIFICATE} from '../../api/minting.api';
+import {GENERATE_CERTIFICATE, generateMetaData, GET_INSTITUTION_NAME, MINT_CERTIFICATE} from '../../api/minting.api';
 import ParchmentUpload from '../../components/upload/upload';
 import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
 import ParchmentContract from '../../utils/contract.json';
-import {ethers} from 'ethers';
 import {useAccount, useContract, useSigner} from 'wagmi';
 import {createRef, uploadFile} from '../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
@@ -51,8 +50,16 @@ const MintProps = (props: MintProps) => {
 		variables: {
 			attributes: {
 				attributes: {
-					...values,
+					...values
 				}
+			}
+		}
+	});
+
+	const getMintPdfVariables = (certificateId: string) => ({
+		variables: {
+			attributes: {
+				certificateId
 			}
 		}
 	});
@@ -66,14 +73,29 @@ const MintProps = (props: MintProps) => {
 	const getInstitutionName = async () => {
 		const result = await refetch();
 		return result?.data.profile?.institutionName;
-	}
+	};
+
+	const initialMint = async (values: MintForm) => {
+		const institutionName = await getInstitutionName() || '';
+		const logoUrl = await uploadLogo(institutionLogo as File, accountData.address as string);
+		const temp = {...values, institutionLogoUrl: logoUrl, institutionName};
+		delete temp.yearAwarded;
+		const result = await createCertificate(createMintVariables(temp));
+		return result?.data?.createCertificate?.id;
+	};
+
+	const mintPdf = async (id: string): Promise<string> => {
+		const config = getMintPdfVariables(id);
+		const result = await generateCertificate(config);
+		return result?.data?.generateCertificatePdf?.url;
+	};
+
 	const handleSubmit = async (values: MintForm) => {
 		if (accountData?.address) {
-			const institutionName = await getInstitutionName() || '';
-			const logoUrl = await uploadLogo(institutionLogo as File, accountData.address);
-			const temp = {...values, institutionLogoUrl: logoUrl, institutionName};
-			delete temp.yearAwarded;
-			const data = await createCertificate(createMintVariables(temp));
+			const id = await initialMint(values);
+			const pdfUrl = await mintPdf(id); // file;
+			const metaData = generateMetaData({...values, pdfUrl});
+			debugger;
 		}
 	};
 

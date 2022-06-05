@@ -1,4 +1,5 @@
 import {gql} from '@apollo/client';
+import {MintForm} from '../models/parchment.models';
 
 export const MINT_CERTIFICATE = gql`
 	mutation mintCertificate($attributes: CreateCertificateInput!) {
@@ -23,3 +24,19 @@ export const GET_INSTITUTION_NAME = gql`
 		}
 	}
 `
+
+export const generateMetaData = (values: MintForm & { pdfUrl: string }) => ({
+	image: `${process.env.NEXT_PUBLIC_RR_API}${values.pdfUrl}`,
+	description: values.description,
+	name: values.awardedTo,
+	attributes: [
+		{
+			trait_type: "Major",
+			value: values.major
+		},
+		{
+			trait_type: "Date Awarded",
+			value: values.yearAwarded
+		}
+	]
+})
