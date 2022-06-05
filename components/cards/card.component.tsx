@@ -62,13 +62,13 @@ export default function BasicStatistics() {
                 />
                 <StatsCard
                     color='green.500'
-                    title={'Accepted User'}
+                    title={'Accepted Users'}
                     stat={'1,000'}
                     icon={<FiUserCheck color='#38A169' size={'3em'} />}
                 />
                 <StatsCard
                     color='red.500'
-                    title={'Rejected User'}
+                    title={'Rejected Users'}
                     stat={'74'}
                     icon={<MdOutlinePersonAddDisabled color='#E53E3E' size={'3em'} />}
                 />
