@@ -16,9 +16,14 @@ import { UserData } from '../../pages/admin-dashboard/admin.model';
 import { VscOpenPreview } from 'react-icons/vsc';
 import { useMutation } from '@apollo/client';
 import { PROFILE_MUTATION } from '../../api/admin.api';
+import { useEffect, useState } from 'react';
 
 export function TableComponent(data: {profiles: UserData[]}) {
     const [action, {data: returnValue, loading}] = useMutation(PROFILE_MUTATION );
+    // const [value, setValue] = useState<any>(data)
+    // useEffect(() => {
+    //     console.log(returnValue)
+    // }, [returnValue])
     return(
         <TableContainer>
             <Table variant='striped'>
@@ -53,9 +58,11 @@ export function TableComponent(data: {profiles: UserData[]}) {
                                                 width='fit-content'
                                                 onClick={() => action({
                                                     variables: {
-                                                        attributes: {
-                                                            id: data.id,
-                                                            kycStatus: 'approved'
+                                                        input: {
+                                                            attributes: {
+                                                                id: data.id,
+                                                                kycStatus: 'approved'
+                                                            }
                                                         }
                                                     }
                                                 })}
@@ -68,9 +75,11 @@ export function TableComponent(data: {profiles: UserData[]}) {
                                                 width='fit-content'
                                                 onClick={() => action({
                                                     variables: {
-                                                        attributes: {
-                                                            id: data.id,
-                                                            kycStatus: 'rejected'
+                                                        input: {
+                                                            attributes: {
+                                                                id: data.id,
+                                                                kycStatus: 'rejected'
+                                                            }
                                                         }
                                                     }
                                                 })}
