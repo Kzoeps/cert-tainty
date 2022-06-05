@@ -19,7 +19,7 @@ export const KYC_PROGRESS_ROUTES = {
 export interface MintForm {
 	awardedTo: string;
 	major: string;
-	yearAwarded: string | Date;
+	yearAwarded?: string | Date;
 	description: string;
 }
 

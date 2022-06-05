@@ -1,32 +1,49 @@
 import {Box, Button, Center, FormControl, Heading, Input, Stack, Text, Textarea} from '@chakra-ui/react';
-import {DatePicker} from 'antd';
-import {Formik, Form} from 'formik';
-import React from 'react';
+import {DatePicker, UploadProps} from 'antd';
+import {Form, Formik} from 'formik';
+import React, {useState} from 'react';
 import {MINT_FORM_INIT, MintForm} from '../../models/parchment.models';
 import {useMutation} from '@apollo/client';
 import {GENERATE_CERTIFICATE, MINT_CERTIFICATE} from '../../api/minting.api';
-import {omit} from 'lodash'
+import ParchmentUpload from '../../components/upload/upload';
+import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
 
 export interface MintProps {
 }
 
 const MintProps = (props: MintProps) => {
-	const[createCertificate, {data: mintingData, loading: mintLoading, error: mintError}] = useMutation(MINT_CERTIFICATE);
-	const[generateCertificate, {data: pdfData, loading: pdfLoading, error: pdfError}] = useMutation(GENERATE_CERTIFICATE);
+	const [createCertificate, {
+		data: mintingData,
+		loading: mintLoading,
+		error: mintError
+	}] = useMutation(MINT_CERTIFICATE);
+	const [generateCertificate, {
+		data: pdfData,
+		loading: pdfLoading,
+		error: pdfError
+	}] = useMutation(GENERATE_CERTIFICATE);
+	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
 	const createMintVariables = (values: Partial<MintForm>) => ({
 		variables: {
 			attributes: {
 				attributes: {
-					...values
+					...values,
+					institutionLogo
 				}
 			}
 		}
-	})
+	});
+	const uploadProps: UploadProps = {
+		...UPLOAD_PROPS,
+		beforeUpload: (file) => {
+			setInstitutionLogo(file);
+		}
+	};
 	const handleSubmit = async (values: MintForm) => {
+		debugger;
 		const temp = {...values};
 		delete temp.yearAwarded;
 		const data = await createCertificate(createMintVariables(temp));
-		console.log(data)
 	};
 
 	return (
@@ -77,16 +94,25 @@ const MintProps = (props: MintProps) => {
 									</FormControl>
 								</Box>
 
-								<Box style={{marginTop: '30px', marginBottom: '30px'}}>
+								<Box style={{marginTop: '30px'}}>
 									<Heading as="h4" size="md">
 										Description
 									</Heading>
 									<FormControl maxW="100%" mt={2} id="name">
-										<Textarea name="description" onChange={formik.handleChange} placeholder="Add any extra information details here"/>
+										<Textarea name="description" onChange={formik.handleChange}
+												  placeholder="Add any extra information details here"/>
 									</FormControl>
 								</Box>
+								<Box style={{marginTop: '30px', marginBottom: '30px'}}>
+									<Heading mb={2} as="h4" size="md">
+										Institution Logo
+									</Heading>
+									<ParchmentUpload title="Upload Institution Logo"
+													 description="A 500px by 500px logo looks the best. Please make sure that the background is either transparent or white"
+													 uploadProps={uploadProps}/>
+								</Box>
 
-								<Button type='submit' colorScheme="green">
+								<Button type="submit" colorScheme="green">
 									Submit
 								</Button>
 							</Stack>
