@@ -12,11 +12,13 @@ import {useAccount, useContract, useSigner} from 'wagmi';
 import {createRef, uploadFile} from '../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
+import {ethers} from 'ethers';
 
 export interface MintProps {
 }
 
-const CONTRACT_ADDRESS = "0x8AECd1bDF59d196b6e8f4EDc2175BdF2213516cc"
+const CONTRACT_ADDRESS = "0x8AECd1bDF59d196b6e8f4EDc2175BdF2213516cc";
+const ABI = ParchmentContract.abi;
 
 const uploadLogo = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -29,7 +31,6 @@ const uploadLogo = async (file: File, wallet_address: string | undefined): Promi
 
 const uploadMetaData = async (file: Blob, wallet_address: string) => {
 	const fileId = uuid();
-	console.log(fileId)
 	if (wallet_address) {
 		const ref = createRef(`certificates/${wallet_address}`);
 		const convFile = new File([file], fileId)
@@ -102,15 +103,20 @@ const MintProps = (props: MintProps) => {
 		return result?.data?.generateCertificatePdf?.url;
 	};
 
+	const mintNFT = async (values: MintForm & { pdfUrl: string}) => {
+		const metaData = generateMetaData({...values});
+		const jsonifiedMetaData = JSON.stringify(metaData);
+		const jsonBlob = new Blob([jsonifiedMetaData],{ type: 'application/json'});
+		const metaUrl = await uploadMetaData(jsonBlob, accountData?.address as string);
+		const tokenId = await connectedContract.safeMint(accountData?.address as string, metaUrl);
+		await tokenId.wait();
+	}
+
 	const handleSubmit = async (values: MintForm) => {
 		if (accountData?.address) {
 			const id = await initialMint(values);
 			const pdfUrl = await mintPdf(id); // file;
-			const metaData = generateMetaData({...values, pdfUrl});
-			const jsonifiedMetaData = JSON.stringify(metaData);
-			const jsonBlob = new Blob([jsonifiedMetaData],{ type: 'application/json'});
-			const metaUrl = await uploadMetaData(jsonBlob, accountData.address);
-			console.log(metaUrl);
+			await mintNFT({ ...values, pdfUrl })
 		}
 	};
 
@@ -193,3 +199,18 @@ const MintProps = (props: MintProps) => {
 };
 
 export default MintProps;
+
+/*
+		const { ethereum } = window;
+		if (ethereum) {
+			// @ts-ignore
+			const provider = new ethers.providers.Web3Provider(ethereum);
+			const signer = provider.getSigner();
+			const nftContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+			debugger;
+			const nftTxn = await nftContract.safeMint(accountData?.address as string, metaUrl);
+			await nftTxn.wait();
+			debugger;
+			console.log('done', nftTxn)
+			const tokenId = await connectedContract.safeMint(accountData?.address as string, metaUrl);
+		}*/
