@@ -18,10 +18,11 @@ interface StatsCardProps {
     title: string;
     stat: string;
     icon: ReactNode;
-    color: string
+    color: string;
+    subTitle: string;
 }
 function StatsCard(props: StatsCardProps) {
-    const { title, stat, icon, color } = props;
+    const { title, stat, icon, color, subTitle } = props;
     return (
         <Box width='310px'>
             <Stat
@@ -36,6 +37,9 @@ function StatsCard(props: StatsCardProps) {
                         </StatLabel>
                         <StatNumber color={color} fontSize={'2xl'} fontWeight={'small'}>
                             {stat}
+                        </StatNumber>
+                        <StatNumber color={color} fontSize={'10px'} fontWeight={'light'}>
+                            {subTitle}
                         </StatNumber>
                     </Box>
                     <Box
@@ -58,25 +62,29 @@ export default function BasicStatistics() {
                     color='blue.300'
                     title={'Users'}
                     stat={'5,000'}
+                    subTitle='32.78% Increase Since Last Week'
                     icon={<BsPerson color='#63B3ED' size={'3em'} />}
                 />
                 <StatsCard
                     color='green.500'
                     title={'Accepted Users'}
-                    stat={'1,000'}
+                    stat={'4,926'}
+                    subTitle='16.24% Increase Since Last Week'
                     icon={<FiUserCheck color='#38A169' size={'3em'} />}
                 />
                 <StatsCard
                     color='red.500'
                     title={'Rejected Users'}
                     stat={'74'}
+                    subTitle='3% Increase Since Last Week'
                     icon={<MdOutlinePersonAddDisabled color='#E53E3E' size={'3em'} />}
                 />
                 <StatsCard
-                    color='yellow.400'
+                    color='black.500'
                     title={'NFT Mint'}
-                    stat={'11,117'}
-                    icon={<FaCloudDownloadAlt size={'3em'} color='#ECC94B' />}
+                    stat={'1,117'}
+                    subTitle='12.14% Increase Since Last Week'
+                    icon={<FaCloudDownloadAlt size={'3em'} color='#cccccc' />}
                 />
             </SimpleGrid>
         </Box>
