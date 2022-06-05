@@ -20,3 +20,25 @@ export const QUERY_PROFILES_STATUS = gql`
         }
 }
 `
+
+export const PROFILE_MUTATION = gql`
+  mutation updateKycStatus($input: UpdateKycStatusInput!) {
+    updateKycStatus(input: $input) {
+    approvedCount
+    documentUrl
+    emailAddress
+    firstName
+    id
+    inProgressCount
+    institutionName
+    institutionType
+    kycStatus
+    lastName
+    rejectedCount
+    user {
+      id
+      walletAddress
+    }
+    }
+  }
+`;

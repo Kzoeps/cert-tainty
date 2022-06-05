@@ -14,8 +14,11 @@ import {
 } from '@chakra-ui/react';
 import { UserData } from '../../pages/admin-dashboard/admin.model';
 import { VscOpenPreview } from 'react-icons/vsc';
+import { useMutation } from '@apollo/client';
+import { PROFILE_MUTATION } from '../../api/admin.api';
 
 export function TableComponent(data: {profiles: UserData[]}) {
+    const [action, {data: returnValue, loading}] = useMutation(PROFILE_MUTATION );
     return(
         <TableContainer>
             <Table variant='striped'>
@@ -46,12 +49,32 @@ export function TableComponent(data: {profiles: UserData[]}) {
                                     <SimpleGrid  columns={ { base: 1, md: 2 } } spacing={{ lg: 1 }}>
                                         <Button background='green.400'
                                                 _hover={{ bg: "green.500" }}
-                                                _focus={{ boxShadow: "outline" }} width='fit-content'>
+                                                _focus={{ boxShadow: "outline" }}
+                                                width='fit-content'
+                                                onClick={() => action({
+                                                    variables: {
+                                                        attributes: {
+                                                            id: data.id,
+                                                            kycStatus: 'approved'
+                                                        }
+                                                    }
+                                                })}
+                                        >
                                             <Text color='white' fontWeight='300'>Accept</Text>
                                         </Button>
                                         <Button _hover={{ bg: "red.500" }}
                                                 _focus={{ boxShadow: "outline" }}
-                                                background='red.400' width='fit-content'>
+                                                background='red.400'
+                                                width='fit-content'
+                                                onClick={() => action({
+                                                    variables: {
+                                                        attributes: {
+                                                            id: data.id,
+                                                            kycStatus: 'rejected'
+                                                        }
+                                                    }
+                                                })}
+                                        >
                                             <Text color='white' fontWeight='300'>Reject</Text>
                                         </Button>
                                     </SimpleGrid>
@@ -61,7 +84,6 @@ export function TableComponent(data: {profiles: UserData[]}) {
                     }
                 </Tbody>
                 <Tfoot>
-
                 </Tfoot>
             </Table>
         </TableContainer>
