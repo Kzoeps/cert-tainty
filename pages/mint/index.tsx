@@ -3,13 +3,30 @@ import {DatePicker} from 'antd';
 import {Formik, Form} from 'formik';
 import React from 'react';
 import {MINT_FORM_INIT, MintForm} from '../../models/parchment.models';
+import {useMutation} from '@apollo/client';
+import {GENERATE_CERTIFICATE, MINT_CERTIFICATE} from '../../api/minting.api';
+import {omit} from 'lodash'
 
 export interface MintProps {
 }
 
 const MintProps = (props: MintProps) => {
-	const handleSubmit = (values: MintForm) => {
-		console.log(values);
+	const[createCertificate, {data: mintingData, loading: mintLoading, error: mintError}] = useMutation(MINT_CERTIFICATE);
+	const[generateCertificate, {data: pdfData, loading: pdfLoading, error: pdfError}] = useMutation(GENERATE_CERTIFICATE);
+	const createMintVariables = (values: Partial<MintForm>) => ({
+		variables: {
+			attributes: {
+				attributes: {
+					...values
+				}
+			}
+		}
+	})
+	const handleSubmit = async (values: MintForm) => {
+		const temp = {...values};
+		delete temp.yearAwarded;
+		const data = await createCertificate(createMintVariables(temp));
+		console.log(data)
 	};
 
 	return (
@@ -38,7 +55,7 @@ const MintProps = (props: MintProps) => {
 										Name
 									</Heading>
 									<FormControl maxW="100%" mt={2} id="name">
-										<Input name="name" onChange={formik.handleChange} type="text"/>
+										<Input name="awardedTo" onChange={formik.handleChange} type="text"/>
 									</FormControl>
 								</Box>
 

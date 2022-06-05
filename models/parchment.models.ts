@@ -17,14 +17,14 @@ export const KYC_PROGRESS_ROUTES = {
 }
 
 export interface MintForm {
-	name: string;
+	awardedTo: string;
 	major: string;
 	yearAwarded: string | Date;
 	description: string;
 }
 
-export const MINT_FORM_INIT = {
-	name: '',
+export const MINT_FORM_INIT: Record<keyof MintForm, string> = {
+	awardedTo: '',
 	major: '',
 	yearAwarded: '',
 	description: ''

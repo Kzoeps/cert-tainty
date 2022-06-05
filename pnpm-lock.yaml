@@ -23,6 +23,7 @@ specifiers:
   formik: ^2.2.9
   framer-motion: ^6
   graphql: ^16.5.0
+  lodash: ^4.17.21
   next: 12.1.6
   react: 18.1.0
   react-dom: 18.1.0
@@ -46,6 +47,7 @@ dependencies:
   formik: 2.2.9_react@18.1.0
   framer-motion: 6.3.5_ef5jwxihqo6n7gxfmzogljlgcm
   graphql: 16.5.0
+  lodash: 4.17.21
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
