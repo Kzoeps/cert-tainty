@@ -1,5 +1,4 @@
-import { Box, Button, SimpleGrid, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
-import { Table, TableContainer } from '@chakra-ui/table';
+import { Button, SimpleGrid, Tbody, Td, Tfoot, Th, Thead, Tr, Table, TableContainer } from '@chakra-ui/react';
 
 export function TableComponent() {
     return(
