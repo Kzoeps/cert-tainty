@@ -9,7 +9,6 @@ import { TABLE_DUMMY } from './admin.constant';
 import TotalEarningComponent from '../../components/admin-components/admin-total-earning.component';
 import { TableComponent } from '../../components/table/table.component';
 
-
 const columns: ColumnsType<DataType> = [
     {
         title: 'Name',

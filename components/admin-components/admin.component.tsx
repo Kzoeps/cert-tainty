@@ -14,7 +14,7 @@ export default function Example() {
     const [ lineData, setData ] = useState<any>( undefined );
     useEffect( () => {
         setData( TOTAL_EARNING );
-    }, [] )
+    }, [] );
     return (
             <>
                 {
