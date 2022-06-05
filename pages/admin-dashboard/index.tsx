@@ -3,23 +3,10 @@ import { Card, Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
 import { Box, Center, CircularProgress, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis } from 'recharts';
-import Example from '../../components/admin-cart/admin.component';
-
-interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-}
-
-const gData = [
-    { name: 'Page A', uv: 100, pv: 20, amt: 2500 },
-    { name: 'Page B', uv: 300, pv: 2400, amt: 99 },
-    { name: 'Page C', uv: 300, pv: 200, amt: 200 },
-    { name: 'Page D', uv: 400, pv: 400, amt: 2400 },
-    { name: 'Page E', uv: 200, pv: 2400, amt: 2400 }
-];
+import Example from '../../components/admin-components/admin.component';
+import { DataType } from './admin.model';
+import { TABLE_DUMMY, TOTAL_MINT } from './admin.constant';
+import TotalEarningComponent from '../../components/admin-components/admin-total-earning.component';
 
 
 const columns: ColumnsType<DataType> = [
@@ -47,9 +34,9 @@ const columns: ColumnsType<DataType> = [
         width: '30%',
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        sorter: ( a, b ) => a.age - b.age,
+        title: 'Email',
+        dataIndex: 'email',
+        // sorter: ( a, b ) => a.age - b.age,
     },
     {
         title: 'Address',
@@ -71,42 +58,12 @@ const columns: ColumnsType<DataType> = [
     },
 ];
 
-const data: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        age: 32,
-        address: 'London No. 2 Lake Park',
-    },
-];
 
 const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter, extra ) => {
     console.log( 'params', pagination, filters, sorter, extra );
 };
 
 const AdminDashboard: React.FC = () => {
-    const [ lineData, setData ] = useState<any>( undefined );
-    useEffect( () => {
-        setData( gData );
-    }, [] )
     return (
         <Box>
             <Box m='32px'>
@@ -123,19 +80,7 @@ const AdminDashboard: React.FC = () => {
                                     Total Minting
                                 </Text>
                             </Box>
-                            { lineData?.length && <LineChart
-                                width={ 550 }
-                                height={ 400 }
-                                data={ lineData }
-                                margin={ { top: 5, right: 20, left: 10, bottom: 5 } }
-                            >
-                                <XAxis dataKey="name"/>
-                                <Tooltip/>
-                                <CartesianGrid stroke="#f5f5f5"/>
-                                <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={ 0 }/>
-                                <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={ 1 }/>
-                            </LineChart>
-                            }
+                            <TotalEarningComponent/>
                         </Card>
                         <Card>
                             <SimpleGrid columns={ { base: 1, md: 1 } }>
@@ -234,17 +179,17 @@ const AdminDashboard: React.FC = () => {
             <Box width='90%' my='24px'>
                 <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
                     <Card>
-                        <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
+                        <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
                     </Card>
                     <Card>
-                        <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
+                        <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
                     </Card>
                 </SimpleGrid>
             </Box>
         </Center>
             <Center width='100%'>
                 <Box width='90%'>
-                    <Table columns={ columns } dataSource={ data } onChange={ onChange }/>
+                    <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
                 </Box>
             </Center>
         </Box>
