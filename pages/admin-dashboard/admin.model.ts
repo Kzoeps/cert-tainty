@@ -6,5 +6,4 @@ export interface DataType {
     email: string;
     institutionName: string;
     institutionType: string;
-    address: string;
 }

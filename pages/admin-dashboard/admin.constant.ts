@@ -6,7 +6,6 @@ export const TABLE_DUMMY: DataType[] = [
         name: 'John Brown',
         email: 'jigmenlodey@gmail.com',
         institutionName: 'SomeWhere',
-        address: 'New York No. 1 Lake Park',
         institutionType: 'institution type'
     },
     {
@@ -14,7 +13,6 @@ export const TABLE_DUMMY: DataType[] = [
         name: 'Jim Green',
         email: 'jigmenlodey@gmail.com',
         institutionName: 'SomeWhere',
-        address: 'London No. 1 Lake Park',
         institutionType: 'institution type'
     },
     {
@@ -22,7 +20,6 @@ export const TABLE_DUMMY: DataType[] = [
         name: 'Joe Black',
         email: 'jigmenlodey@gmail.com',
         institutionName: 'SomeWhere',
-        address: 'Sidney No. 1 Lake Park',
         institutionType: 'institution type'
     },
     {
@@ -30,7 +27,6 @@ export const TABLE_DUMMY: DataType[] = [
         name: 'Jim Red',
         email: 'jigmenlodey@gmail.com',
         institutionName: 'SomeWhere',
-        address: 'London No. 2 Lake Park',
         institutionType: 'institution type'
     },
 ];

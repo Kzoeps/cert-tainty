@@ -46,25 +46,7 @@ const columns: ColumnsType<DataType> = [
     {
         title: 'Institution Type',
         dataIndex: 'institutionType'
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        filters: [
-            {
-                text: <span>London</span>,
-                value: 'London',
-            },
-            {
-                text: <span>New York</span>,
-                value: 'New York',
-            },
-        ],
-        // @ts-ignore
-        onFilter: ( value: string, record ) => record.address.startsWith( value ),
-        filterSearch: true,
-        width: '40%',
-    },
+    }
 ];
 
 
@@ -85,18 +67,20 @@ const AdminDashboard: React.FC = () => {
                     <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
                         <Card>
                             <Box mb='24px'>
-                                <Text fontWeight='18px'>
+                                <Heading fontSize='18px'>
                                     Total Minting
-                                </Text>
+                                </Heading>
                             </Box>
                             <TotalEarningComponent/>
                         </Card>
                         <Card>
                             <SimpleGrid columns={ { base: 1, md: 1 } }>
                                 <Box sx={ { width: 'fit-content' } }>
-                                    <Text fontSize='18px'>Total Earning</Text>
+                                    <Heading fontSize='18px'>
+                                        Total Earning
+                                    </Heading>
                                     <Box my='8px'>
-                                        <Text fontWeight='bold'>
+                                        <Text fontWeight='bold' fontSize='12px'>
                                             Nu. 287,493
                                         </Text>
                                         <Text>
@@ -107,9 +91,9 @@ const AdminDashboard: React.FC = () => {
                                 <hr/>
                                 <Box sx={ { width: 'fit-content' } } my='18px'>
                                     <SimpleGrid>
-                                        <Text fontWeight='18px'>
+                                        <Heading fontSize='18px'>
                                             Total Subscription
-                                        </Text>
+                                        </Heading>
                                         <Box my='12px'>
                                             <Text fontWeight='bold'>
                                                 $87,493
@@ -189,9 +173,19 @@ const AdminDashboard: React.FC = () => {
             <Box width='90%' my='24px'>
                 <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
                     <Card>
+                        <Box my='12px'>
+                            <Heading fontSize='18px'>
+                                Total Accepted
+                            </Heading>
+                        </Box>
                         <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
                     </Card>
                     <Card>
+                        <Box my='12px'>
+                            <Heading fontSize='18px'>
+                                Total Rejected
+                            </Heading>
+                        </Box>
                         <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
                     </Card>
                 </SimpleGrid>

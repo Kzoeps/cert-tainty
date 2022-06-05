@@ -60,21 +60,21 @@ export default function BasicStatistics() {
             <SimpleGrid columns={{ base: 4, md: 4}} spacing={{ base: 5, lg: 8 }}>
                 <StatsCard
                     color='blue.300'
-                    title={'Users'}
+                    title={'Institutions'}
                     stat={'5,000'}
                     subTitle='32.78% Increase Since Last Week'
                     icon={<BsPerson color='#63B3ED' size={'3em'} />}
                 />
                 <StatsCard
                     color='green.500'
-                    title={'Accepted Users'}
+                    title={'Accepted Institutions'}
                     stat={'4,926'}
                     subTitle='16.24% Increase Since Last Week'
                     icon={<FiUserCheck color='#38A169' size={'3em'} />}
                 />
                 <StatsCard
                     color='red.500'
-                    title={'Rejected Users'}
+                    title={'Rejected Institutions'}
                     stat={'74'}
                     subTitle='3% Increase Since Last Week'
                     icon={<MdOutlinePersonAddDisabled color='#E53E3E' size={'3em'} />}
