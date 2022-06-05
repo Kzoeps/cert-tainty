@@ -6,6 +6,8 @@ export const QUERY_PROFILES_STATUS = gql`
         documentUrl
         emailAddress
         firstName
+        rejectedCount
+        approvedCount
     id
     institutionName
     institutionType

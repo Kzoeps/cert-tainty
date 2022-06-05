@@ -8,45 +8,11 @@ import { DataType } from './admin.model';
 import { TABLE_DUMMY } from './admin.constant';
 import TotalEarningComponent from '../../components/admin-components/admin-total-earning.component';
 import { TableComponent } from '../../components/table/table.component';
+import { useQuery } from '@apollo/client';
+import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
+import { RejectedComponent } from '../../components/table/rejected.component';
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        filters: [
-            {
-                text: 'Joe',
-                value: 'Joe',
-            },
-            {
-                text: 'Category 1',
-                value: 'Category 1',
-            },
-            {
-                text: 'Category 2',
-                value: 'Category 2',
-            },
-        ],
-        filterMode: 'tree',
-        filterSearch: true,
-        // @ts-ignore
-        onFilter: ( value: string, record ) => record.address.startsWith( value ),
-        width: '30%',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        // sorter: ( a, b ) => a.age - b.age,
-    },
-    {
-        title: 'Institution Name',
-        dataIndex: 'institutionName'
-    },
-    {
-        title: 'Institution Type',
-        dataIndex: 'institutionType'
-    }
-];
+
 
 
 const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter, extra ) => {
@@ -54,11 +20,26 @@ const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter
 };
 
 const AdminDashboard: React.FC = () => {
+    const {data: APPROVE, error: approveError, loading: approveLoading}  = useQuery(QUERY_PROFILES_STATUS, {
+        variables: {
+            kycStatus: 'approved'
+        }
+    });
+    const {data: Reject, error: rejectError, loading: rejectLoading}  = useQuery(QUERY_PROFILES_STATUS, {
+        variables: {
+            kycStatus: 'rejected'
+        }
+    });
+    const {data: PROGRESS, error: progressError, loading: loadingError}  = useQuery(QUERY_PROFILES_STATUS, {
+        variables: {
+            kycStatus: 'in_progress'
+        }
+    });
     return (
         <Box>
             <Box m='32px'>
                 <Stack direction='row'>
-                    <BasicStatistics/>
+                    <BasicStatistics data={ PROGRESS?.profiles }/>
                 </Stack>
             </Box>
             <Center>
@@ -170,14 +151,14 @@ const AdminDashboard: React.FC = () => {
             </Center>
             <Center>
             <Box width='90%' my='24px'>
-                <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
+                <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 4 } }>
                     <Card>
                         <Box my='12px'>
                             <Heading fontSize='18px'>
                                 Total Accepted
                             </Heading>
                         </Box>
-                        <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
+                        <RejectedComponent profiles={APPROVE?.profiles}/>
                     </Card>
                     <Card>
                         <Box my='12px'>
@@ -185,7 +166,7 @@ const AdminDashboard: React.FC = () => {
                                 Total Rejected
                             </Heading>
                         </Box>
-                        <Table columns={ columns } dataSource={ TABLE_DUMMY } onChange={ onChange }/>
+                        <RejectedComponent profiles={Reject?.profiles}/>
                     </Card>
                 </SimpleGrid>
             </Box>
@@ -196,7 +177,7 @@ const AdminDashboard: React.FC = () => {
                         <Heading as='h4' size='md' my='12px'>
                             INSTITUTION
                         </Heading>
-                        <TableComponent/>
+                        <TableComponent profiles={PROGRESS?.profiles}/>
                     </Card>
                 </Box>
             </Center>

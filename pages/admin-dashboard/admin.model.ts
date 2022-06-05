@@ -16,6 +16,7 @@ export interface UserData {
     emailAddress: string;
     firstName: string;
     id: string;
+    totalUser: number;
     institutionName: string;
     institutionType: string;
     kycStatus: string;

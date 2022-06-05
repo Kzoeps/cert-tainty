@@ -1,6 +1,5 @@
 import {
     Box,
-    chakra,
     Flex,
     SimpleGrid,
     Stat,
@@ -13,6 +12,7 @@ import { BsPerson } from 'react-icons/bs';
 import { MdOutlinePersonAddDisabled } from 'react-icons/md';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
 import { FiUserCheck } from 'react-icons/fi';
+import { UserData } from '../../pages/admin-dashboard/admin.model';
 
 interface StatsCardProps {
     title: string;
@@ -54,28 +54,29 @@ function StatsCard(props: StatsCardProps) {
     );
 }
 
-export default function BasicStatistics() {
+export default function BasicStatistics(props: {data: UserData[]}) {
+    console.log()
     return (
         <Box maxW="7xl" mx={'auto'} pt={2} px={{ base: 2, sm: 12, md: 17 }}>
             <SimpleGrid columns={{ base: 4, md: 4}} spacing={{ base: 5, lg: 8 }}>
                 <StatsCard
                     color='blue.300'
                     title={'Institutions'}
-                    stat={'5,000'}
+                    stat={props?.data?.[0]?.totalUser?.toString()}
                     subTitle='32.78% Increase Since Last Week'
                     icon={<BsPerson color='#63B3ED' size={'3em'} />}
                 />
                 <StatsCard
                     color='green.500'
                     title={'Accepted Institutions'}
-                    stat={'4,926'}
+                    stat={props?.data?.[0]?.approvedCount?.toString()}
                     subTitle='16.24% Increase Since Last Week'
                     icon={<FiUserCheck color='#38A169' size={'3em'} />}
                 />
                 <StatsCard
                     color='red.500'
                     title={'Rejected Institutions'}
-                    stat={'74'}
+                    stat={props?.data?.[0]?.rejectedCount?.toString()}
                     subTitle='3% Increase Since Last Week'
                     icon={<MdOutlinePersonAddDisabled color='#E53E3E' size={'3em'} />}
                 />

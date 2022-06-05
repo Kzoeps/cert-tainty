@@ -12,10 +12,12 @@ import {
     Text,
     Link, Center
 } from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
+import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 import { UserData } from '../../pages/admin-dashboard/admin.model';
 import { VscOpenPreview } from 'react-icons/vsc';
 
-export function TableComponent(data: {profiles: UserData[]}) {
+export function AcceptanceComponent(data: {profiles: UserData[]}) {
     return(
         <TableContainer>
             <Table variant='striped'>
