@@ -27,20 +27,7 @@ export const client = createClient({
 			options: {
 				appName: 'wagmi',
 			},
-		}),
-		// new WalletConnectConnector({
-		// 	chains,
-		// 	options: {
-		// 		qrcode: true,
-		// 	},
-		// }),
-		// new InjectedConnector({
-		// 	chains,
-		// 	options: {
-		// 		name: 'Injected',
-		// 		shimDisconnect: true,
-		// 	},
-		// }),
+		})
 	],
 	provider,
 	webSocketProvider,
