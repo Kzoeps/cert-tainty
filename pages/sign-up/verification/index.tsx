@@ -86,7 +86,7 @@ export default function VerificationForm() {
 		if (verifLoading) setInitialLoad(true);
 		refetch().then((response) => {
 			setInitialLoad(false);
-			const kycStatus = response.data.profile.kycStatus as KycStatusEnum;
+			const kycStatus = response?.data?.profile?.kycStatus as KycStatusEnum;
 			const route = KYC_PROGRESS_ROUTES[kycStatus];
 			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
 				void router.push(`verification/${route}`);

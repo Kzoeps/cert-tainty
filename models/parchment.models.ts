@@ -16,4 +16,18 @@ export const KYC_PROGRESS_ROUTES = {
 	[KycStatusEnum.approved]: ''
 }
 
+export interface MintForm {
+	name: string;
+	major: string;
+	yearAwarded: string | Date;
+	description: string;
+}
+
+export const MINT_FORM_INIT = {
+	name: '',
+	major: '',
+	yearAwarded: '',
+	description: ''
+}
+
 export const KYC_ROUTE_ENUMS = [KycStatusEnum.approved, KycStatusEnum.in_progress, KycStatusEnum.rejected];
