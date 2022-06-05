@@ -63,7 +63,9 @@ export default function SignUp() {
 					</Heading>
 					<Stack direction={'row'} spacing={4} align={'center'}>
 						<AvatarGroup>
-							{avatars.map((avatar) => (
+							{avatars.map((avatar) => {
+								/* eslint-disable */
+								return (
 								<Avatar
 									key={avatar.name}
 									name={avatar.name}
@@ -84,7 +86,9 @@ export default function SignUp() {
 										left: 0,
 									}}
 								/>
-							))}
+								)
+								/* eslint-disable */
+							})}
 						</AvatarGroup>
 						<Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
 							+
