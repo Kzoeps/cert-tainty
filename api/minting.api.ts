@@ -15,3 +15,11 @@ export const GENERATE_CERTIFICATE = gql`
 		}
 	}
 `
+
+export const GET_INSTITUTION_NAME = gql`
+	query institutionName {
+		profile {
+			institutionName
+		}
+	}
+`

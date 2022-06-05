@@ -3,8 +3,8 @@ import {DatePicker, UploadProps} from 'antd';
 import {Form, Formik} from 'formik';
 import React, {useState} from 'react';
 import {MINT_FORM_INIT, MintForm} from '../../models/parchment.models';
-import {useMutation} from '@apollo/client';
-import {GENERATE_CERTIFICATE, MINT_CERTIFICATE} from '../../api/minting.api';
+import {useMutation, useQuery} from '@apollo/client';
+import {GENERATE_CERTIFICATE, GET_INSTITUTION_NAME, MINT_CERTIFICATE} from '../../api/minting.api';
 import ParchmentUpload from '../../components/upload/upload';
 import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
 import ParchmentContract from '../../utils/contract.json';
@@ -38,6 +38,7 @@ const MintProps = (props: MintProps) => {
 		loading: pdfLoading,
 		error: pdfError
 	}] = useMutation(GENERATE_CERTIFICATE);
+	const { data, refetch } = useQuery(GET_INSTITUTION_NAME);
 	const { data: signer } = useSigner();
 	const { data: accountData} = useAccount();
 	const connectedContract = useContract({
@@ -46,12 +47,11 @@ const MintProps = (props: MintProps) => {
 		signerOrProvider: signer
 	})
 	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
-	const createMintVariables = (values: Partial<MintForm & { logoUrl: string }>) => ({
+	const createMintVariables = (values: Partial<MintForm & { institutionLogoUrl: string; institutionName: string }>) => ({
 		variables: {
 			attributes: {
 				attributes: {
 					...values,
-					institutionLogoUrl: values.logoUrl
 				}
 			}
 		}
@@ -62,10 +62,16 @@ const MintProps = (props: MintProps) => {
 			setInstitutionLogo(file);
 		}
 	};
+
+	const getInstitutionName = async () => {
+		const result = await refetch();
+		return result?.data.profile?.institutionName;
+	}
 	const handleSubmit = async (values: MintForm) => {
 		if (accountData?.address) {
+			const institutionName = await getInstitutionName() || '';
 			const logoUrl = await uploadLogo(institutionLogo as File, accountData.address);
-			const temp = {...values, logoUrl};
+			const temp = {...values, institutionLogoUrl: logoUrl, institutionName};
 			delete temp.yearAwarded;
 			const data = await createCertificate(createMintVariables(temp));
 		}

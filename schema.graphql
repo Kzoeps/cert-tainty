@@ -105,7 +105,7 @@ type Profile {
 }
 
 type Query {
-	profile(id: ID!): Profile
+	profile(id: ID): Profile
 	profiles(kycStatus: KycStatusEnum): [Profile!]
 }
 
