@@ -7,8 +7,24 @@ import {useMutation} from '@apollo/client';
 import {GENERATE_CERTIFICATE, MINT_CERTIFICATE} from '../../api/minting.api';
 import ParchmentUpload from '../../components/upload/upload';
 import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
+import ParchmentContract from '../../utils/contract.json';
+import {ethers} from 'ethers';
+import {useAccount, useContract, useSigner} from 'wagmi';
+import {createRef, uploadFile} from '../../api/file-upload.api';
+import {getDownloadURL} from 'firebase/storage';
 
 export interface MintProps {
+}
+
+const CONTRACT_ADDRESS = "0x8AECd1bDF59d196b6e8f4EDc2175BdF2213516cc"
+
+const uploadLogo = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
+	if (wallet_address) {
+		const ref = createRef(`institutionLogos/${wallet_address}`);
+		const uploadedFile = await uploadFile(ref, file);
+		return await getDownloadURL(uploadedFile.ref);
+	}
+	return undefined;
 }
 
 const MintProps = (props: MintProps) => {
@@ -22,13 +38,20 @@ const MintProps = (props: MintProps) => {
 		loading: pdfLoading,
 		error: pdfError
 	}] = useMutation(GENERATE_CERTIFICATE);
+	const { data: signer } = useSigner();
+	const { data: accountData} = useAccount();
+	const connectedContract = useContract({
+		addressOrName: CONTRACT_ADDRESS,
+		contractInterface: ParchmentContract.abi,
+		signerOrProvider: signer
+	})
 	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
-	const createMintVariables = (values: Partial<MintForm>) => ({
+	const createMintVariables = (values: Partial<MintForm & { logoUrl: string }>) => ({
 		variables: {
 			attributes: {
 				attributes: {
 					...values,
-					institutionLogo
+					institutionLogoUrl: values.logoUrl
 				}
 			}
 		}
@@ -40,10 +63,12 @@ const MintProps = (props: MintProps) => {
 		}
 	};
 	const handleSubmit = async (values: MintForm) => {
-		debugger;
-		const temp = {...values};
-		delete temp.yearAwarded;
-		const data = await createCertificate(createMintVariables(temp));
+		if (accountData?.address) {
+			const logoUrl = await uploadLogo(institutionLogo as File, accountData.address);
+			const temp = {...values, logoUrl};
+			delete temp.yearAwarded;
+			const data = await createCertificate(createMintVariables(temp));
+		}
 	};
 
 	return (
