@@ -11,6 +11,7 @@ import ParchmentContract from '../../utils/contract.json';
 import {useAccount, useContract, useSigner} from 'wagmi';
 import {createRef, uploadFile} from '../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
+import { v4 as uuid } from 'uuid';
 
 export interface MintProps {
 }
@@ -24,6 +25,17 @@ const uploadLogo = async (file: File, wallet_address: string | undefined): Promi
 		return await getDownloadURL(uploadedFile.ref);
 	}
 	return undefined;
+}
+
+const uploadMetaData = async (file: Blob, wallet_address: string) => {
+	const fileId = uuid();
+	console.log(fileId)
+	if (wallet_address) {
+		const ref = createRef(`certificates/${wallet_address}`);
+		const convFile = new File([file], fileId)
+		const uploadedFile = await uploadFile(ref, convFile);
+		return await getDownloadURL(uploadedFile.ref);
+	}
 }
 
 const MintProps = (props: MintProps) => {
@@ -95,7 +107,10 @@ const MintProps = (props: MintProps) => {
 			const id = await initialMint(values);
 			const pdfUrl = await mintPdf(id); // file;
 			const metaData = generateMetaData({...values, pdfUrl});
-			debugger;
+			const jsonifiedMetaData = JSON.stringify(metaData);
+			const jsonBlob = new Blob([jsonifiedMetaData],{ type: 'application/json'});
+			const metaUrl = await uploadMetaData(jsonBlob, accountData.address);
+			console.log(metaUrl);
 		}
 	};
 
