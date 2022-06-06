@@ -16,7 +16,7 @@ import { v4 as uuid } from 'uuid';
 export interface MintProps {
 }
 
-const CONTRACT_ADDRESS = "0x5794F0BaA9C12F8e8244b238aD6BeF350A8b9dE7";
+const CONTRACT_ADDRESS = "0xf400307CB62B999BcDfC211F7183A61807c4AC2f";
 const ABI = ParchmentContract.abi;
 const fileMetaData = {
 	contentType: 'application/json'
@@ -114,7 +114,12 @@ const MintProps = (props: MintProps) => {
 		const metaUrl = await uploadMetaData(jsonBlob, accountData?.address as string);
 		const tokenId = await connectedContract.safeMint(accountData?.address as string, metaUrl);
 		await tokenId.wait();
-		const result = await connectedContract.getTokenId();
+		try {
+			const result = await connectedContract.getTokenId();
+		} catch (e) {
+			console.log(e);
+		}
+		// const result = await connectedContract.getTokenId();
 	}
 
 	const handleSubmit = async (values: MintForm) => {
