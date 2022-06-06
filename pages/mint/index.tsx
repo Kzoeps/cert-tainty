@@ -17,7 +17,7 @@ import  QRCode from 'react-qr-code';
 export interface MintProps {
 }
 
-const CONTRACT_ADDRESS = "0x8C35288055AF3D11F9e49E99c63cf16a6e604cEc";
+const CONTRACT_ADDRESS = "0x5794F0BaA9C12F8e8244b238aD6BeF350A8b9dE7";
 const ABI = ParchmentContract.abi;
 const fileMetaData = {
 	contentType: 'application/json'
@@ -115,6 +115,7 @@ const MintProps = (props: MintProps) => {
 		const metaUrl = await uploadMetaData(jsonBlob, accountData?.address as string);
 		const tokenId = await connectedContract.safeMint(accountData?.address as string, metaUrl);
 		await tokenId.wait();
+		const result = await connectedContract.getTokenId();
 	}
 
 	const handleSubmit = async (values: MintForm) => {
