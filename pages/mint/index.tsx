@@ -1,4 +1,4 @@
-import {Box, Button, Center, FormControl, Heading, Input, Stack, Text, Textarea} from '@chakra-ui/react';
+import {Box, useToast, Button, Center, FormControl, Heading, Input, Stack, Text, Textarea} from '@chakra-ui/react';
 import {DatePicker, UploadProps} from 'antd';
 import {Form, Formik} from 'formik';
 import React, {useState} from 'react';
@@ -12,6 +12,8 @@ import {useAccount, useContract, useSigner} from 'wagmi';
 import {createRef, uploadFile} from '../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
+import {SUCCESS_T_CONST} from '../../models/parchment.constants';
+import {useRouter} from 'next/router';
 
 export interface MintProps {
 }
@@ -33,7 +35,6 @@ const uploadLogo = async (file: File, wallet_address: string | undefined): Promi
 
 const uploadMetaData = async (file: Blob, wallet_address: string) => {
 	const fileId = uuid();
-	console.log(fileId)
 	if (wallet_address) {
 		const ref = createRef(`certificates/${wallet_address}/${fileId}.json`);
 		const convFile = new File([file], fileId)
@@ -71,6 +72,8 @@ const MintProps = (props: MintProps) => {
 			}
 		}
 	});
+	const toast = useToast();
+	const router = useRouter();
 
 	const getMintPdfVariables = (certificateId: string) => ({
 		variables: {
@@ -116,6 +119,12 @@ const MintProps = (props: MintProps) => {
 		await tokenId.wait();
 		try {
 			const result = await connectedContract.getTokenId();
+			const id = parseInt(result._hex,16);
+			toast({
+				title: 'Successfully minted your certificate',
+				...SUCCESS_T_CONST
+			});
+			await router.push(`/mint-view/${id}`);
 		} catch (e) {
 			console.log(e);
 		}
