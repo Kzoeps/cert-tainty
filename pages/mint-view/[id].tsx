@@ -25,6 +25,7 @@ export interface MintViewProps {
 export const MintView = (props: MintViewProps) => {
 	const router = useRouter();
 	const {data: signer} = useSigner();
+	const [search, setSearch] = useState('');
 	const [certData, setCertData] = useState(undefined);
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
@@ -48,7 +49,7 @@ export const MintView = (props: MintViewProps) => {
 							<InputGroup>
 								<InputLeftElement
 									pointerEvents="none"><SearchIcon color="black"/></InputLeftElement>
-								<Input boxShadow={'md'} bg={'white'} variant='filled' type="tel" placeholder="Certificate ID"/>
+								<Input onChange={(val) => { setSearch(val.target.value) } } boxShadow={'md'} bg={'white'} variant='filled' type="tel" placeholder="Certificate ID"/>
 							</InputGroup>
 							<Button
 								/* flex={1} */
