@@ -56,6 +56,13 @@ export const MintView = (props: MintViewProps) => {
 		};
 		if (id) void getTokenUri(id as string);
 	}, [id, connectedContract]);
+
+	useEffect(() => {
+		return () => {
+			setSearch(undefined);
+			setCertData(undefined);
+		}
+	}, [])
 	return (
 		<>
 			<Center w="100%" bg="gray.50">
