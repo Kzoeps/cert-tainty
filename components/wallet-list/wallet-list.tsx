@@ -45,6 +45,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						title: 'Logged in successfully',
 						...SUCCESS_T_CONST
 					});
+					void router.push('/sign-up/verification');
 				}).finally(() => {
 					setShowLoading(false)
 				})
