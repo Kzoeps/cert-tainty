@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
 	images: {
-	  domains:['https://young-hollows-48335.herokuapp.com', 'https://lh3.googleusercontent.com/']
+	  domains:['https://young-hollows-48335.herokuapp.com', 'lh3.googleusercontent.com']
 	}
 }
 
