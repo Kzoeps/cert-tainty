@@ -1,5 +1,6 @@
 import {
-	Box, Button,
+	Box,
+	Button,
 	Center,
 	Flex,
 	Heading,
@@ -49,7 +50,7 @@ export const MintView = (props: MintViewProps) => {
 			<Center w="100%" bg="gray.50">
 				<Flex minH="100vh" align="center" justify="center" bg="gray.50">
 					<VStack mt={8} mb={12}>
-						<HStack w={'100%'} mb={6} pl={4}>
+						<HStack w={'3xl'} mb={6} pl={0}>
 							<InputGroup>
 								<InputLeftElement
 									pointerEvents="none"><SearchIcon color="black"/></InputLeftElement>
@@ -66,22 +67,21 @@ export const MintView = (props: MintViewProps) => {
 									'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
 								}
 								_hover={{
-									bg: 'green.500',
+									bg: 'green.500'
 								}}
 								_focus={{
-									bg: 'green.500',
+									bg: 'green.500'
 								}}>
 								Search
 							</Button>
 						</HStack>
-						<HStack rounded="xl" w="4xl" pl={4} mt={4} mb={4} bg={'gray.50'} spacing={2}>
-							<Stack boxShadow="lg" w="55%" border={'1px'} bg={'white'} py={2} height={710}
-								   borderColor={'gray.200'} borderStyle={'block'} rounded={'lg'}>
-								<Image width={400} height={700} alt="certificate"
-									   src="https://lh3.googleusercontent.com/lbBYOkRPvDaOZm2xBhsvTtwE9nubmUmL7FA5UjTDDZIXsxwpf5e5bjeUfhrNF95WNefnvoCLlwcWfhe6X_5_qRvR2ZIeYOIR7I5a=w600"/>
+						<VStack w="3xl" rounded={'lg'} boxShadow={'lg'} mt={4} mb={4} bg={'white'}>
+							<Stack  w="100%" bg={'white'} py={2} height={460}>
+								<Image width={400} height={450} alt="certificate"
+									   src="https://lh3.googleusercontent.com/WbJWwZMuL-gPBsr7ins1cbKYVr-sQqSmpmkZdVsEfV9F_jmYqu3laqnbQ6uYTKB17fAie24I2Q9uclfCHhUhJ3ceDqx4BeNU69okJlU=s0"/>
 							</Stack>
-							<Stack as={Box} w={'45%'} boxShadow={'lg'} h={710} py={4} pl={4} bg="white" rounded={'lg'}
-								   border={'1px'} borderColor={'gray.200'} borderStyle={'block'} textAlign={'left'}>
+							<Stack as={Box} w={'100%'} h={300} py={4} pl={10} pr={10} bg="#F9F9F9"
+								   textAlign={'left'}>
 								<Flex gap={2}>
 									<FaUserAlt style={{marginTop: '3px', color: 'gray'}} size={'18px'}/> <Heading
 									as="h4" size={'md'}>Name</Heading>
@@ -113,7 +113,7 @@ export const MintView = (props: MintViewProps) => {
 								</Flex>
 							</Text>*/}
 							</Stack>
-						</HStack>
+						</VStack>
 					</VStack>
 					</Flex>
 			</Center>

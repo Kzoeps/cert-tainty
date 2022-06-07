@@ -127,7 +127,6 @@ const MintProps = (props: MintProps) => {
 		} catch (e) {
 			console.log(e);
 		}
-		// const result = await connectedContract.getTokenId();
 	}
 
 	const handleSubmit = async (values: MintForm) => {
