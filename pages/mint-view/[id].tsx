@@ -33,6 +33,9 @@ export const MintView = (props: MintViewProps) => {
 		signerOrProvider: signer
 	});
 	const {id} = router.query;
+	const handleSearch = () => {
+		void router.push(`/mint-view/${search}`);
+	}
 	useEffect(() => {
 		const getTokenUri = async (tokenId: string) => {
 			// const tokenUri = await connectedContract.tokenURI(tokenId);
@@ -53,6 +56,7 @@ export const MintView = (props: MintViewProps) => {
 							</InputGroup>
 							<Button
 								/* flex={1} */
+								onClick={handleSearch}
 								px={4}
 								fontSize={'sm'}
 								bg={'green.400'}
