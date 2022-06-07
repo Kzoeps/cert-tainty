@@ -4,7 +4,7 @@ import {
 	Collapse,
 	Flex,
 	Icon,
-	IconButton,
+	IconButton, Image,
 	Link,
 	Popover,
 	PopoverTrigger,
@@ -15,6 +15,7 @@ import {
 	useDisclosure
 } from '@chakra-ui/react';
 import {ChevronDownIcon, CloseIcon, HamburgerIcon} from '@chakra-ui/icons';
+import Logo from '../../public/assets/hacket-small.png';
 import {useRouter} from 'next/router';
 
 export default function Navigation() {
@@ -47,13 +48,7 @@ export default function Navigation() {
 					/>
 				</Flex>
 				<Flex flex={{base: 1}} justify={{base: 'center', md: 'start'}}>
-					<Text
-						textAlign={useBreakpointValue({base: 'center', md: 'left'})}
-						fontFamily={'heading'}
-						color={useColorModeValue('gray.800', 'white')}>
-						Logo
-					</Text>
-
+					<img width={'35px'} alt={'logo'} src={'/assets/hacket-small.png'}/>
 					<Flex display={{base: 'none', md: 'flex'}} ml={10}>
 						<DesktopNav/>
 					</Flex>
@@ -202,15 +197,15 @@ const NAV_ITEMS: Array<NavItem> = [
 		href: '/admin-dashboard'
 	},
 	{
-		label: 'Certificate',
-		href: '/certificate-details'
+		label: 'Mint Certificate',
+		href: '/mint'
 	},
 	{
-		label: 'Learn Design',
-		href: '#'
+		label: 'Pricing',
+		href: '/pricing'
 	},
 	{
-		label: 'Hire Designers',
+		label: 'Search NFT',
 		href: '#'
 	}
 ];

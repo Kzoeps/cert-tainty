@@ -16,7 +16,7 @@ import {
 	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {VERIFICATION_FORM_INIT, VerificationFormI} from '../../../models/_auth.models';
 import {Form, Formik} from 'formik';
 import ParchmentUpload from '../../../components/upload/upload';
@@ -30,6 +30,7 @@ import {useRouter} from 'next/router';
 import {useMutation, useQuery} from '@apollo/client';
 import {QUERY_VERIFICATION_STATUS, VERIFY_KYC} from '../../../api/kyc.api';
 import {InstitutionEnum, KYC_PROGRESS_ROUTES, KYC_ROUTE_ENUMS, KycStatusEnum} from '../../../models/parchment.models';
+import Head from 'next/head';
 
 const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -98,6 +99,9 @@ export default function VerificationForm() {
 	/* eslint-disable */
 	return (
 		<>
+			<Head>
+				<title>Parchment Verification</title>
+			</Head>
 			<Formik initialValues={VERIFICATION_FORM_INIT} onSubmit={handleSubmit}>
 				{(formik) => (
 					<Form>

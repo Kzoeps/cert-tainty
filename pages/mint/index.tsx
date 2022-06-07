@@ -14,6 +14,7 @@ import {v4 as uuid} from 'uuid';
 import {ABI, CONTRACT_ADDRESS, SUCCESS_T_CONST} from '../../models/parchment.constants';
 import {css} from '@emotion/react';
 import {useRouter} from 'next/router';
+import Head from 'next/head';
 
 export interface MintProps {
 }
@@ -157,6 +158,9 @@ const MintProps = (props: MintProps) => {
 
 	return (
 		<>
+			<Head>
+				<title>Parchment Mint</title>
+			</Head>
 			<Formik initialValues={MINT_FORM_INIT} onSubmit={handleSubmit}>
 				{(formik) => {
 					return (

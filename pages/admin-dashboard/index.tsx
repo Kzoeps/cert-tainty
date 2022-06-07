@@ -10,6 +10,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 import { RejectedComponent } from '../../components/table/rejected.component';
 import { DataType } from '../../components/admin-components/admin.model';
+import Head from 'next/head';
 
 const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter, extra ) => {
     console.log( 'params', pagination, filters, sorter, extra );
@@ -37,6 +38,10 @@ const AdminDashboard: React.FC = () => {
         PROGRESS
     }
     return (
+		<>
+			<Head>
+				<title>Admin Dashboard</title>
+			</Head>
         <Box>
             <Box m='32px'>
                 <Stack direction='row'>
@@ -187,6 +192,7 @@ const AdminDashboard: React.FC = () => {
                 </Box>
             </Center>
         </Box>
+		</>
     )
 };
 
