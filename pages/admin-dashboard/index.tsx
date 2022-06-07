@@ -182,7 +182,7 @@ const AdminDashboard: React.FC = () => {
                         <Heading as='h4' size='md' my='12px'>
                             INSTITUTION
                         </Heading>
-                        <TableComponent profiles={PROGRESS?.profiles}/>
+                        <TableComponent profiles={APPROVE?.profiles}/>
                     </Card>
                 </Box>
             </Center>

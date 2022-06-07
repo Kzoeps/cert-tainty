@@ -24,6 +24,19 @@ export function TableComponent(data: {profiles: UserData[]}) {
     // useEffect(() => {
     //     console.log(returnValue)
     // }, [returnValue])
+    const fileDownload = (url: string) => {
+        const uri = window.URL.createObjectURL(
+            new Blob([url]),
+        );
+        const link = document.createElement('a');
+        link.href = uri;
+        link.setAttribute(
+            'download',
+            `FileName.pdf`,
+        );
+        document.body.appendChild(link);
+        link.click();
+    }
     return(
         <TableContainer>
             <Table variant='striped'>
@@ -47,7 +60,7 @@ export function TableComponent(data: {profiles: UserData[]}) {
                                 <Td>{data?.institutionType}</Td>
                                 <Td>
                                     <Center>
-                                        <VscOpenPreview cursor='pointer' size='34px' onClick={() => console.log(data?.documentUrl[0])} />
+                                        <VscOpenPreview cursor='pointer' size='34px' onClick={() => fileDownload(data.documentUrl[0])} />
                                     </Center>
                                 </Td>
                                 <Td>
