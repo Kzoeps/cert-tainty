@@ -13,7 +13,7 @@ export enum KycStatusEnum {
 export const KYC_PROGRESS_ROUTES = {
 	[KycStatusEnum.rejected]: 'verification/rejected',
 	[KycStatusEnum.in_progress]: 'verification/in-progress',
-	[KycStatusEnum.approved]: 'mint'
+	[KycStatusEnum.approved]: '/mint'
 }
 
 export interface MintForm {

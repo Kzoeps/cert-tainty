@@ -1,27 +1,33 @@
-import {Box, useToast, Button, Center, FormControl, Heading, Input, Stack, Text, Textarea} from '@chakra-ui/react';
+import {Box, Button, Center, FormControl, Heading, Input, Stack, Text, Textarea, useToast} from '@chakra-ui/react';
 import {DatePicker, UploadProps} from 'antd';
 import {Form, Formik} from 'formik';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {MINT_FORM_INIT, MintForm} from '../../models/parchment.models';
 import {useMutation, useQuery} from '@apollo/client';
 import {GENERATE_CERTIFICATE, generateMetaData, GET_INSTITUTION_NAME, MINT_CERTIFICATE} from '../../api/minting.api';
 import ParchmentUpload from '../../components/upload/upload';
 import {UPLOAD_PROPS} from '../../components/upload/upload.constants';
-import ParchmentContract from '../../utils/contract.json';
 import {useAccount, useContract, useSigner} from 'wagmi';
 import {createRef, uploadFile} from '../../api/file-upload.api';
 import {getDownloadURL} from 'firebase/storage';
-import { v4 as uuid } from 'uuid';
-import {SUCCESS_T_CONST} from '../../models/parchment.constants';
+import {v4 as uuid} from 'uuid';
+import {ABI, CONTRACT_ADDRESS, SUCCESS_T_CONST} from '../../models/parchment.constants';
+import {css} from '@emotion/react';
 import {useRouter} from 'next/router';
-import { CONTRACT_ADDRESS, ABI } from '../../models/parchment.constants';
 
 export interface MintProps {
 }
 
+
+const override = css`
+  position: absolute;
+  top: 50%;
+  left: 50%
+`;
+
 const fileMetaData = {
 	contentType: 'application/json'
-}
+};
 
 const uploadLogo = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -43,6 +49,7 @@ const uploadMetaData = async (file: Blob, wallet_address: string) => {
 }
 
 const MintProps = (props: MintProps) => {
+	const [loading, setLoading] = useState(false);
 	const [createCertificate, {
 		data: mintingData,
 		loading: mintLoading,
@@ -61,7 +68,7 @@ const MintProps = (props: MintProps) => {
 		contractInterface: ABI,
 		signerOrProvider: signer
 	})
-	const [certificateId, setCertificateId] = useState('');
+	const certificateRef = useRef('');
 	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
 	const createMintVariables = (values: Partial<MintForm & { institutionLogoUrl: string; institutionName: string }>) => ({
 		variables: {
@@ -86,6 +93,7 @@ const MintProps = (props: MintProps) => {
 		...UPLOAD_PROPS,
 		beforeUpload: (file) => {
 			setInstitutionLogo(file);
+			return false;
 		}
 	};
 
@@ -124,95 +132,108 @@ const MintProps = (props: MintProps) => {
 				title: 'Successfully minted your certificate',
 				...SUCCESS_T_CONST
 			});
-			await router.push(`/mint-view/${id}?certId=${certificateId}`);
+			await router.push(`/mint-view/${id}?certId=${certificateRef.current}`);
 		} catch (e) {
 			console.log(e);
+		} finally {
+			setLoading(false);
 		}
 	}
 
 	const handleSubmit = async (values: MintForm) => {
 		if (accountData?.address) {
-			const id = await initialMint(values);
-			setCertificateId(id);
-			const pdfUrl = await mintPdf(id);
-			await mintNFT({ ...values, pdfUrl })
+			try {
+				setLoading(true);
+				const id = await initialMint(values);
+				certificateRef.current = id
+				const pdfUrl = await mintPdf(id);
+				await mintNFT({...values, pdfUrl})
+			} catch (e) {
+				setLoading(false);
+				console.log(e)
+			}
 		}
 	};
 
 	return (
-		<Formik initialValues={MINT_FORM_INIT} onSubmit={handleSubmit}>
-			{(formik) => {
-				return (
-					<Form>
-						<Center bg="gray.50" w="100%" textAlign={'center'}>
-							<Stack rounded="lg" boxShadow="lg" bg="white" maxW="xl" p={8} as={Box} textAlign={'left'}
-								   mb={24}
-								   mt={20}>
-								<Heading
-									lineHeight={1.1}
-									fontWeight={600}
-									fontSize={{base: '2xl', sm: '3xl', lg: '4xl'}}>
-									Mint a certificate
-								</Heading>
-								<Text w="100%" mb={12} color="gray.500">
-									Generate an nft for your college degree to ensure authenticity backed with
-									cryptography.
-									Please provide all required details below to mint a certificate.
-								</Text>
+		<>
+			<Formik initialValues={MINT_FORM_INIT} onSubmit={handleSubmit}>
+				{(formik) => {
+					return (
+						<Form>
+							<Center bg="gray.50" w="100%" textAlign={'center'}>
+								<Stack rounded="lg" boxShadow="lg" bg="white" maxW="xl" p={8} as={Box}
+									   textAlign={'left'}
+									   mb={24}
+									   mt={20}>
+									<Heading
+										lineHeight={1.1}
+										fontWeight={600}
+										fontSize={{base: '2xl', sm: '3xl', lg: '4xl'}}>
+										Mint a certificate
+									</Heading>
+									<Text w="100%" mb={12} color="gray.500">
+										Generate an nft for your college degree to ensure authenticity backed with
+										cryptography.
+										Please provide all required details below to mint a certificate.
+									</Text>
 
-								<Box style={{marginTop: '30px'}}>
-									<Heading as="h4" size="md">
-										Name
-									</Heading>
-									<FormControl maxW="100%" mt={2} id="name">
-										<Input name="awardedTo" onChange={formik.handleChange} type="text"/>
-									</FormControl>
-								</Box>
+									<Box style={{marginTop: '30px'}}>
+										<Heading as="h4" size="md">
+											Name
+										</Heading>
+										<FormControl maxW="100%" mt={2} id="name">
+											<Input name="awardedTo" onChange={formik.handleChange} type="text"/>
+										</FormControl>
+									</Box>
 
-								<Box style={{marginTop: '30px'}}>
-									<Heading as="h4" size="md">
-										Major
-									</Heading>
-									<FormControl maxW="100%" mt={2} id="name">
-										<Input name="major" onChange={formik.handleChange} type="text"/>
-									</FormControl>
-								</Box>
+									<Box style={{marginTop: '30px'}}>
+										<Heading as="h4" size="md">
+											Major
+										</Heading>
+										<FormControl maxW="100%" mt={2} id="name">
+											<Input name="major" onChange={formik.handleChange} type="text"/>
+										</FormControl>
+									</Box>
 
-								<Box style={{marginTop: '30px'}}>
-									<Heading as="h4" size="md">
-										Year Awarded
-									</Heading>
-									<FormControl maxW="100%" mt={2} id="name">
-										<DatePicker name="yearAwarded" onChange={(date, dateString) => formik.setFieldValue('yearAwarded', dateString)} size="large" style={{width: '100%'}}/>
-									</FormControl>
-								</Box>
+									<Box style={{marginTop: '30px'}}>
+										<Heading as="h4" size="md">
+											Year Awarded
+										</Heading>
+										<FormControl maxW="100%" mt={2} id="name">
+											<DatePicker name="yearAwarded"
+														onChange={(date, dateString) => formik.setFieldValue('yearAwarded', dateString)}
+														size="large" style={{width: '100%'}}/>
+										</FormControl>
+									</Box>
 
-								<Box style={{marginTop: '30px'}}>
-									<Heading as="h4" size="md">
-										Description
-									</Heading>
-									<FormControl maxW="100%" mt={2} id="name">
-										<Textarea name="description" onChange={formik.handleChange}
-												  placeholder="Add any extra information details here"/>
-									</FormControl>
-								</Box>
-								<Box style={{marginTop: '30px', marginBottom: '30px'}}>
-									<Heading mb={2} as="h4" size="md">
-										Institution Logo
-									</Heading>
-									<ParchmentUpload title="Upload Institution Logo"
-													 description="A 500px by 500px logo looks the best. Please make sure that the background is either transparent or white"
-													 uploadProps={uploadProps}/>
-								</Box>
-								<Button type="submit" colorScheme="green">
-									Submit
-								</Button>
-							</Stack>
-						</Center>
-					</Form>
-				);
-			}}
-		</Formik>
+									<Box style={{marginTop: '30px'}}>
+										<Heading as="h4" size="md">
+											Description
+										</Heading>
+										<FormControl maxW="100%" mt={2} id="name">
+											<Textarea name="description" onChange={formik.handleChange}
+													  placeholder="Add any extra information details here"/>
+										</FormControl>
+									</Box>
+									<Box style={{marginTop: '30px', marginBottom: '30px'}}>
+										<Heading mb={2} as="h4" size="md">
+											Institution Logo
+										</Heading>
+										<ParchmentUpload title="Upload Institution Logo"
+														 description="A 500px by 500px logo looks the best. Please make sure that the background is either transparent or white"
+														 uploadProps={uploadProps}/>
+									</Box>
+									<Button isLoading={loading} type="submit" colorScheme="green">
+										Submit
+									</Button>
+								</Stack>
+							</Center>
+						</Form>
+					);
+				}}
+			</Formik>
+		</>
 	);
 };
 

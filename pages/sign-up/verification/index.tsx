@@ -10,7 +10,7 @@ import {
 	Menu,
 	MenuButton,
 	MenuItem,
-	MenuList,
+	MenuList, Spinner,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -53,6 +53,7 @@ export default function VerificationForm() {
 		...UPLOAD_PROPS,
 		beforeUpload: (file) => {
 			setFiles((files) => [...files, file as File]);
+			return false;
 		}
 	};
 	const handleSubmit = async ({firstName, lastName, institutionName, email, institutionType}: VerificationFormI) => {
@@ -143,7 +144,7 @@ export default function VerificationForm() {
 											<MenuButton>
 												<FormControl id="type" isRequired>
 													<FormLabel> Institution Type </FormLabel>
-													<Input value={formik.values.institutionType} name="institutionName"/>
+													<Input value={formik.values.institutionType} readOnly name="institutionName"/>
 												</FormControl>
 											</MenuButton>
 											<MenuList>
