@@ -8,7 +8,9 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Link,
 	Skeleton,
+	Spinner,
 	Stack,
 	Text,
 	VStack
@@ -20,24 +22,40 @@ import {BsFillCalendarDateFill} from 'react-icons/bs';
 import {MdDescription} from 'react-icons/md';
 import {AiFillBook} from 'react-icons/ai';
 import {useContract, useSigner} from 'wagmi';
-import {ABI, CONTRACT_ADDRESS} from '../../models/parchment.constants';
+import {ABI, CONTRACT_ADDRESS, OPEN_SEA_BASE_API} from '../../models/parchment.constants';
 import {SearchIcon} from '@chakra-ui/icons';
 import {MetaData, NftAttributes} from '../../models/parchment.models';
+import axios from 'axios';
+import {FiExternalLink} from 'react-icons/fi';
+import {GoCloudDownload} from 'react-icons/go';
+import {useMutation} from '@apollo/client';
+import {DOWNLOAD_CERTIFICATE} from '../../api/minting.api';
+import {downloadFile} from '../../utils/misc-utils.';
 
 export interface MintViewProps {
 }
+
+const generateVariable = (value: any) => ({
+	variables: {
+		attributes: {
+			attributes: value
+		}
+	}
+})
 
 export const MintView = (props: MintViewProps) => {
 	const router = useRouter();
 	const {data: signer} = useSigner();
 	const [search, setSearch] = useState('');
 	const [certData, setCertData] = useState<undefined | MetaData>(undefined);
+	const [openSeaUrl, setOpenSeaUrl] = useState('');
+	const [generateCertificateWithQr, {loading}] = useMutation(DOWNLOAD_CERTIFICATE);
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
 		contractInterface: ABI,
 		signerOrProvider: signer
 	});
-	const {id} = router.query;
+	const {id, certId} = router.query;
 	const handleSearch = () => {
 		void router.push(`/mint-view/${search}`);
 	};
@@ -45,6 +63,24 @@ export const MintView = (props: MintViewProps) => {
 	const findAttribute = (attributeName: string, attributes: NftAttributes[]): string | undefined => {
 		return attributes?.find((attribute) => attribute.trait_type === attributeName)?.value;
 	};
+
+	const handleDownload = async () => {
+		const result = await generateCertificateWithQr(generateVariable({
+			certificateId: certId,
+			qrCodeUrl: `https://cert-tainty.vercel.app/mint-view/${id}?=${certId}`
+		}));
+		const downloadUrl = result?.data?.generateCertificateWithQr?.url;
+		downloadFile(downloadUrl);
+	}
+
+	useEffect(() => {
+		const getUrl = async (tokenId: string) => {
+			const parsedId = parseInt(tokenId) - 1;
+			const result = await axios.get(`${OPEN_SEA_BASE_API}/asset/${CONTRACT_ADDRESS}/${parsedId}`);
+			setOpenSeaUrl(result?.data?.permalink || '');
+		};
+		if (id) void getUrl(id as string);
+	}, [id]);
 
 	useEffect(() => {
 		const getTokenUri = async (tokenId: string) => {
@@ -94,11 +130,9 @@ export const MintView = (props: MintViewProps) => {
 							</Button>
 						</HStack>
 						<VStack w="3xl" rounded={'lg'} boxShadow={'lg'} mt={4} mb={4} bg={'white'}>
-							<Stack w="100%" bg={'white'} py={2} height={460}>
-								<Skeleton isLoaded={!!certData?.image}>
-									<img width={400} height={450} alt="certificate"
-										 src={certData?.image as string}/>
-								</Skeleton>
+							<Stack w="100%" bg={'white'} py={2} pl={24} height={440}>
+								{certData?.image  ? <img width={'88%'} alt="certificate"
+										 src={certData?.image as string}/> : <Spinner style={{position: 'absolute', left: '50%', top: '50%'}}/>}
 							</Stack>
 							<Stack as={Box} w={'100%'} h={300} py={4} pl={10} pr={10} bg="#F9F9F9"
 								   textAlign={'left'}>
@@ -142,11 +176,23 @@ export const MintView = (props: MintViewProps) => {
 										{certData?.description ?? ''}
 									</Text>
 								</Skeleton>
-								{/*<Text decoration={'underline'}>
-								<Flex gap={2}>
-									View on open sea <FiExternalLink style={{marginTop: '3px'}}/>
-								</Flex>
-							</Text>*/}
+								<HStack spacing={6}>
+									<Skeleton isLoaded={!!openSeaUrl}>
+										<Link target="_blank" rel="noreferrer noopener" href={openSeaUrl as string}>
+											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+												View on Open Sea <FiExternalLink style={{marginTop: '3px'}}/>
+											</Text>
+										</Link>
+									</Skeleton>
+									<Skeleton isLoaded={!!certId}>
+										<Link onClick={handleDownload}>
+											{loading ? <Spinner/> :
+												<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+													Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
+												</Text>}
+										</Link>
+									</Skeleton>
+								</HStack>
 							</Stack>
 						</VStack>
 					</VStack>
