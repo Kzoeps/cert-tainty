@@ -38,8 +38,9 @@ export const MintView = (props: MintViewProps) => {
 	}
 	useEffect(() => {
 		const getTokenUri = async (tokenId: string) => {
-			// const tokenUri = await connectedContract.tokenURI(tokenId);
-			console.log(tokenId);
+			// const turi = parseInt(tokenId);
+			// const tokenUri = await connectedContract.tokenURI(turi);
+			// console.log(tokenId);
 		};
 		if (id) void getTokenUri(id as string);
 	}, [id, connectedContract]);
