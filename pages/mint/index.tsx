@@ -50,6 +50,7 @@ const uploadMetaData = async (file: Blob, wallet_address: string) => {
 }
 
 const MintProps = (props: MintProps) => {
+	const [loading, setLoading] = useState(false);
 	const [createCertificate, {
 		data: mintingData,
 		loading: mintLoading,
