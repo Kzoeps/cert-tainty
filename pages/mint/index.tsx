@@ -95,7 +95,7 @@ const MintProps = (props: MintProps) => {
 
 	const initialMint = async (values: MintForm) => {
 		const institutionName = await getInstitutionName() || '';
-		const logoUrl = await uploadLogo(institutionLogo as File, accountData.address as string);
+		const logoUrl = await uploadLogo(institutionLogo as File, accountData?.address as string);
 		const temp = {...values, institutionLogoUrl: logoUrl, institutionName};
 		delete temp.yearAwarded;
 		const result = await createCertificate(createMintVariables(temp));
