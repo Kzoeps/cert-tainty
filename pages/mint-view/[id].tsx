@@ -8,6 +8,7 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Link,
 	Skeleton,
 	Stack,
 	Text,
@@ -20,9 +21,11 @@ import {BsFillCalendarDateFill} from 'react-icons/bs';
 import {MdDescription} from 'react-icons/md';
 import {AiFillBook} from 'react-icons/ai';
 import {useContract, useSigner} from 'wagmi';
-import {ABI, CONTRACT_ADDRESS} from '../../models/parchment.constants';
+import {ABI, CONTRACT_ADDRESS, OPEN_SEA_BASE_API} from '../../models/parchment.constants';
 import {SearchIcon} from '@chakra-ui/icons';
 import {MetaData, NftAttributes} from '../../models/parchment.models';
+import axios from 'axios';
+import {FiExternalLink} from 'react-icons/fi';
 
 export interface MintViewProps {
 }
@@ -32,6 +35,7 @@ export const MintView = (props: MintViewProps) => {
 	const {data: signer} = useSigner();
 	const [search, setSearch] = useState('');
 	const [certData, setCertData] = useState<undefined | MetaData>(undefined);
+	const [openSeaUrl, setOpenSeaUrl] = useState('');
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
 		contractInterface: ABI,
@@ -45,6 +49,15 @@ export const MintView = (props: MintViewProps) => {
 	const findAttribute = (attributeName: string, attributes: NftAttributes[]): string | undefined => {
 		return attributes?.find((attribute) => attribute.trait_type === attributeName)?.value;
 	};
+
+	useEffect(() => {
+		const getUrl = async (tokenId: string) => {
+			const parsedId = parseInt(tokenId) - 1;
+			const result = await axios.get(`${OPEN_SEA_BASE_API}/asset/${CONTRACT_ADDRESS}/${parsedId}`);
+			setOpenSeaUrl(result?.data?.permalink || '');
+		};
+		if (id) void getUrl(id as string);
+	}, [id]);
 
 	useEffect(() => {
 		const getTokenUri = async (tokenId: string) => {
@@ -141,6 +154,13 @@ export const MintView = (props: MintViewProps) => {
 									<Text fontSize="lg">
 										{certData?.description ?? ''}
 									</Text>
+								</Skeleton>
+								<Skeleton isLoaded={!!openSeaUrl}>
+									<Link target="_blank" rel="noreferrer noopener" href={openSeaUrl as string}>
+										<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+											View on Open Sea <FiExternalLink style={{marginTop: '3px'}}/>
+										</Text>
+									</Link>
 								</Skeleton>
 								{/*<Text decoration={'underline'}>
 								<Flex gap={2}>

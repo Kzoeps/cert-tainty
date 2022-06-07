@@ -13,3 +13,4 @@ export const ERROR_T_CONST: Partial<UseToastOptions> = {
 
 export const CONTRACT_ADDRESS = "0xf400307CB62B999BcDfC211F7183A61807c4AC2f";
 export const ABI = ParchmentContract.abi;
+export const OPEN_SEA_BASE_API = "https://testnets-api.opensea.io/api/v1"
