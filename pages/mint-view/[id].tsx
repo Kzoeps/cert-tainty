@@ -59,7 +59,7 @@ export const MintView = (props: MintViewProps) => {
 
 	useEffect(() => {
 		return () => {
-			setSearch(undefined);
+			setSearch('');
 			setCertData(undefined);
 		}
 	}, [])
