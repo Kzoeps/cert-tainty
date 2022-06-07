@@ -16,6 +16,9 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 import {FaUserAlt} from 'react-icons/fa';
+import {BsFillBookFill, BsFillCalendarDateFill} from 'react-icons/bs';
+import {MdDescription} from 'react-icons/md';
+import {AiFillBook} from 'react-icons/ai';
 import {useContract, useSigner} from 'wagmi';
 import {ABI, CONTRACT_ADDRESS} from '../../models/parchment.constants';
 import {SearchIcon} from '@chakra-ui/icons';
@@ -83,27 +86,30 @@ export const MintView = (props: MintViewProps) => {
 							<Stack as={Box} w={'100%'} h={300} py={4} pl={10} pr={10} bg="#F9F9F9"
 								   textAlign={'left'}>
 								<Flex gap={2}>
-									<FaUserAlt style={{marginTop: '3px', color: 'gray'}} size={'18px'}/> <Heading
+									<FaUserAlt style={{marginTop: '3px', color: '#48BB78'}} size={'18px'}/> <Heading
 									as="h4" size={'md'}>Name</Heading>
 								</Flex>
 								<Text fontSize="lg">
 									Karma Zoepa Yoezer
 								</Text>
-								<Heading as="h4" size="md">
-									Major
-								</Heading>
+								<Flex gap={2}>
+									<AiFillBook style={{marginTop: '3px', color: '#48BB78'}} size={'18px'}/> <Heading
+									as="h4" size={'md'}>Major</Heading>
+								</Flex>
 								<Text fontSize="lg">
 									Computer Science
 								</Text>
-								<Heading as="h4" size="md">
-									Date Awarded
-								</Heading>
+								<Flex gap={2}>
+									<BsFillCalendarDateFill style={{marginTop: '3px', color: '#48BB78'}} size={'18px'}/> <Heading
+									as="h4" size={'md'}>Date Awarded</Heading>
+								</Flex>
 								<Text fontSize="lg">
 									2022-05-14
 								</Text>
-								<Heading as="h4" size="md">
-									Description
-								</Heading>
+								<Flex gap={2}>
+									<MdDescription style={{marginTop: '3px', color: '#48BB78'}} size={'20px'}/> <Heading
+									as="h4" size={'md'}>Description</Heading>
+								</Flex>
 								<Text fontSize="lg">
 									Graduated With summa cum laude
 								</Text>
