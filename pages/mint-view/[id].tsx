@@ -26,6 +26,7 @@ import {SearchIcon} from '@chakra-ui/icons';
 import {MetaData, NftAttributes} from '../../models/parchment.models';
 import axios from 'axios';
 import {FiExternalLink} from 'react-icons/fi';
+import {GoCloudDownload} from 'react-icons/go';
 
 export interface MintViewProps {
 }
@@ -155,13 +156,22 @@ export const MintView = (props: MintViewProps) => {
 										{certData?.description ?? ''}
 									</Text>
 								</Skeleton>
-								<Skeleton isLoaded={!!openSeaUrl}>
-									<Link target="_blank" rel="noreferrer noopener" href={openSeaUrl as string}>
-										<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
-											View on Open Sea <FiExternalLink style={{marginTop: '3px'}}/>
-										</Text>
-									</Link>
-								</Skeleton>
+								<HStack spacing={6}>
+									<Skeleton isLoaded={!!openSeaUrl}>
+										<Link target="_blank" rel="noreferrer noopener" href={openSeaUrl as string}>
+											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+												View on Open Sea <FiExternalLink style={{marginTop: '3px'}}/>
+											</Text>
+										</Link>
+									</Skeleton>
+									<Skeleton isLoaded={!!openSeaUrl}>
+										<Link onClick={() => {console.log('clicked')}}>
+											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+												Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
+											</Text>
+										</Link>
+									</Skeleton>
+								</HStack>
 								{/*<Text decoration={'underline'}>
 								<Flex gap={2}>
 									View on open sea <FiExternalLink style={{marginTop: '3px'}}/>
