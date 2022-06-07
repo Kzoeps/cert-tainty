@@ -131,10 +131,8 @@ export const MintView = (props: MintViewProps) => {
 						</HStack>
 						<VStack w="3xl" rounded={'lg'} boxShadow={'lg'} mt={4} mb={4} bg={'white'}>
 							<Stack w="100%" bg={'white'} py={2} pl={24} height={440}>
-								<Skeleton isLoaded={!!certData?.image}>
-									<img width={'88%'} alt="certificate"
-										 src={certData?.image as string}/>
-								</Skeleton>
+								{certData?.image  ? <img width={'88%'} alt="certificate"
+										 src={certData?.image as string}/> : <Spinner style={{position: 'absolute', left: '50%', top: '50%'}}/>}
 							</Stack>
 							<Stack as={Box} w={'100%'} h={300} py={4} pl={10} pr={10} bg="#F9F9F9"
 								   textAlign={'left'}>
