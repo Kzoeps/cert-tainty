@@ -22,6 +22,7 @@ import {AiFillBook} from 'react-icons/ai';
 import {useContract, useSigner} from 'wagmi';
 import {ABI, CONTRACT_ADDRESS} from '../../models/parchment.constants';
 import {SearchIcon} from '@chakra-ui/icons';
+import axios from 'axios';
 
 export interface MintViewProps {
 }
@@ -42,9 +43,11 @@ export const MintView = (props: MintViewProps) => {
 	}
 	useEffect(() => {
 		const getTokenUri = async (tokenId: string) => {
-			// const turi = parseInt(tokenId);
-			// const tokenUri = await connectedContract.tokenURI(turi);
-			// console.log(tokenId);
+			const turi = parseInt(tokenId) - 1;
+			const tokenUri = await connectedContract.tokenURI(turi);
+			const stuff = fetch(tokenUri);
+			console.log(stuff)
+			console.log(tokenUri);
 		};
 		if (id) void getTokenUri(id as string);
 	}, [id, connectedContract]);
