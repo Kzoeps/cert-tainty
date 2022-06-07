@@ -61,6 +61,7 @@ const MintProps = (props: MintProps) => {
 		contractInterface: ABI,
 		signerOrProvider: signer
 	})
+	const [certificateId, setCertificateId] = useState('');
 	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
 	const createMintVariables = (values: Partial<MintForm & { institutionLogoUrl: string; institutionName: string }>) => ({
 		variables: {
@@ -123,7 +124,7 @@ const MintProps = (props: MintProps) => {
 				title: 'Successfully minted your certificate',
 				...SUCCESS_T_CONST
 			});
-			await router.push(`/mint-view/${id}`);
+			await router.push(`/mint-view/${id}?certId=${certificateId}`);
 		} catch (e) {
 			console.log(e);
 		}
@@ -132,6 +133,7 @@ const MintProps = (props: MintProps) => {
 	const handleSubmit = async (values: MintForm) => {
 		if (accountData?.address) {
 			const id = await initialMint(values);
+			setCertificateId(id);
 			const pdfUrl = await mintPdf(id);
 			await mintNFT({ ...values, pdfUrl })
 		}

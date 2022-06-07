@@ -27,9 +27,19 @@ import {MetaData, NftAttributes} from '../../models/parchment.models';
 import axios from 'axios';
 import {FiExternalLink} from 'react-icons/fi';
 import {GoCloudDownload} from 'react-icons/go';
+import {useMutation} from '@apollo/client';
+import {DOWNLOAD_CERTIFICATE} from '../../api/minting.api';
 
 export interface MintViewProps {
 }
+
+const generateVariable = (value: any) => ({
+	variables: {
+		attributes: {
+			attributes: value
+		}
+	}
+})
 
 export const MintView = (props: MintViewProps) => {
 	const router = useRouter();
@@ -37,12 +47,13 @@ export const MintView = (props: MintViewProps) => {
 	const [search, setSearch] = useState('');
 	const [certData, setCertData] = useState<undefined | MetaData>(undefined);
 	const [openSeaUrl, setOpenSeaUrl] = useState('');
+	const [generateCertificateWithQr] = useMutation(DOWNLOAD_CERTIFICATE)
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
 		contractInterface: ABI,
 		signerOrProvider: signer
 	});
-	const {id} = router.query;
+	const {id, certId} = router.query;
 	const handleSearch = () => {
 		void router.push(`/mint-view/${search}`);
 	};
@@ -50,6 +61,11 @@ export const MintView = (props: MintViewProps) => {
 	const findAttribute = (attributeName: string, attributes: NftAttributes[]): string | undefined => {
 		return attributes?.find((attribute) => attribute.trait_type === attributeName)?.value;
 	};
+
+	const handleDownload = async () => {
+		const result = await generateCertificateWithQr(generateVariable({ certificateId: certId,  qrCodeUrl: `https://cert-tainty.vercel.app/mint-view/${id}?=${certId}` }))
+		console.log(result);
+	}
 
 	useEffect(() => {
 		const getUrl = async (tokenId: string) => {
@@ -164,8 +180,8 @@ export const MintView = (props: MintViewProps) => {
 											</Text>
 										</Link>
 									</Skeleton>
-									<Skeleton isLoaded={!!openSeaUrl}>
-										<Link onClick={() => {console.log('clicked')}}>
+									<Skeleton isLoaded={!!certId}>
+										<Link onClick={handleDownload}>
 											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
 												Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
 											</Text>

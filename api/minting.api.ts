@@ -25,6 +25,14 @@ export const GET_INSTITUTION_NAME = gql`
 	}
 `
 
+export const DOWNLOAD_CERTIFICATE = gql`
+	mutation downloadCertificate($attributes: GenerateCertificateWithQrInput!) {
+		generateCertificateWithQr(input: $attributes) {
+			url
+		}
+	}
+`
+
 export const generateMetaData = (values: MintForm & { pdfUrl: string }) => ({
 	image: `${process.env.NEXT_PUBLIC_RR_API}${values.pdfUrl}`,
 	// image: `${values.pdfUrl}`,
