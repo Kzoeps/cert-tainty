@@ -14,12 +14,11 @@ import {getDownloadURL} from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import {SUCCESS_T_CONST} from '../../models/parchment.constants';
 import {useRouter} from 'next/router';
+import { CONTRACT_ADDRESS, ABI } from '../../models/parchment.constants';
 
 export interface MintProps {
 }
 
-const CONTRACT_ADDRESS = "0xf400307CB62B999BcDfC211F7183A61807c4AC2f";
-const ABI = ParchmentContract.abi;
 const fileMetaData = {
 	contentType: 'application/json'
 }
@@ -59,7 +58,7 @@ const MintProps = (props: MintProps) => {
 	const { data: accountData} = useAccount();
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
-		contractInterface: ParchmentContract.abi,
+		contractInterface: ABI,
 		signerOrProvider: signer
 	})
 	const [institutionLogo, setInstitutionLogo] = useState<File | undefined>(undefined);
@@ -119,7 +118,7 @@ const MintProps = (props: MintProps) => {
 		await tokenId.wait();
 		try {
 			const result = await connectedContract.getTokenId();
-			const id = parseInt(result._hex,16);
+			const id = result._hex;
 			toast({
 				title: 'Successfully minted your certificate',
 				...SUCCESS_T_CONST
