@@ -143,7 +143,7 @@ const MintProps = (props: MintProps) => {
 				return (
 					<Form>
 						<Center bg="gray.50" w="100%" textAlign={'center'}>
-							<Stack rounded="lg" boxShadow="lg" bg="white" maxW="xl" p={8} as={Box} textAlign={'left'}
+							<Stack rounded="lg" boxShadow="lg" bg="white" maxW="2xl" p={8} as={Box} textAlign={'left'}
 								   mb={24}
 								   mt={20}>
 								<Heading
