@@ -67,7 +67,7 @@ export const MintView = (props: MintViewProps) => {
 	const handleDownload = async () => {
 		const result = await generateCertificateWithQr(generateVariable({
 			certificateId: certId,
-			qrCodeUrl: `https://cert-tainty.vercel.app/mint-view/${id}?=${certId}`
+			qrCodeUrl: openSeaUrl
 		}));
 		const downloadUrl = result?.data?.generateCertificateWithQr?.url;
 		downloadFile(downloadUrl);
