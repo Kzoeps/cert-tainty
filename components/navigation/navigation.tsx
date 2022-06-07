@@ -198,12 +198,12 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
 	{
-		label: 'Inspiration',
-		href: '#'
+		label: 'Admin',
+		href: '/admin-dashboard'
 	},
 	{
-		label: 'Find Work',
-		href: '#'
+		label: 'Certificate',
+		href: '/certificate-details'
 	},
 	{
 		label: 'Learn Design',
