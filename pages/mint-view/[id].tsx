@@ -10,6 +10,7 @@ import {
 	InputLeftElement,
 	Link,
 	Skeleton,
+	Spinner,
 	Stack,
 	Text,
 	VStack
@@ -29,6 +30,7 @@ import {FiExternalLink} from 'react-icons/fi';
 import {GoCloudDownload} from 'react-icons/go';
 import {useMutation} from '@apollo/client';
 import {DOWNLOAD_CERTIFICATE} from '../../api/minting.api';
+import {downloadFile} from '../../utils/misc-utils.';
 
 export interface MintViewProps {
 }
@@ -47,7 +49,7 @@ export const MintView = (props: MintViewProps) => {
 	const [search, setSearch] = useState('');
 	const [certData, setCertData] = useState<undefined | MetaData>(undefined);
 	const [openSeaUrl, setOpenSeaUrl] = useState('');
-	const [generateCertificateWithQr] = useMutation(DOWNLOAD_CERTIFICATE)
+	const [generateCertificateWithQr, {loading}] = useMutation(DOWNLOAD_CERTIFICATE);
 	const connectedContract = useContract({
 		addressOrName: CONTRACT_ADDRESS,
 		contractInterface: ABI,
@@ -63,8 +65,12 @@ export const MintView = (props: MintViewProps) => {
 	};
 
 	const handleDownload = async () => {
-		const result = await generateCertificateWithQr(generateVariable({ certificateId: certId,  qrCodeUrl: `https://cert-tainty.vercel.app/mint-view/${id}?=${certId}` }))
-		console.log(result);
+		const result = await generateCertificateWithQr(generateVariable({
+			certificateId: certId,
+			qrCodeUrl: `https://cert-tainty.vercel.app/mint-view/${id}?=${certId}`
+		}));
+		const downloadUrl = result?.data?.generateCertificateWithQr?.url;
+		downloadFile(downloadUrl);
 	}
 
 	useEffect(() => {
@@ -124,9 +130,9 @@ export const MintView = (props: MintViewProps) => {
 							</Button>
 						</HStack>
 						<VStack w="3xl" rounded={'lg'} boxShadow={'lg'} mt={4} mb={4} bg={'white'}>
-							<Stack w="100%" bg={'white'} py={2} height={460}>
+							<Stack w="100%" bg={'white'} py={2} pl={24} height={440}>
 								<Skeleton isLoaded={!!certData?.image}>
-									<img width={400} height={450} alt="certificate"
+									<img width={'88%'} alt="certificate"
 										 src={certData?.image as string}/>
 								</Skeleton>
 							</Stack>
@@ -182,17 +188,13 @@ export const MintView = (props: MintViewProps) => {
 									</Skeleton>
 									<Skeleton isLoaded={!!certId}>
 										<Link onClick={handleDownload}>
-											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
-												Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
-											</Text>
+											{loading ? <Spinner/> :
+												<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
+													Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
+												</Text>}
 										</Link>
 									</Skeleton>
 								</HStack>
-								{/*<Text decoration={'underline'}>
-								<Flex gap={2}>
-									View on open sea <FiExternalLink style={{marginTop: '3px'}}/>
-								</Flex>
-							</Text>*/}
 							</Stack>
 						</VStack>
 					</VStack>
