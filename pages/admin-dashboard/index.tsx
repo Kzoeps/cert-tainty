@@ -99,15 +99,17 @@ const AdminDashboard: React.FC = () => {
                         <Card>
                             <SimpleGrid columns={ { base: 1, md: 2 } }>
                                 <Box sx={ { width: 'fit-content' } }>
-                                    <CircularProgress thickness='4px' value={ 30 } size='70px'/>
+                                    <CircularProgress thickness='4px' color='pink.400' value={ 40 } size='70px'/>
                                 </Box>
                                 <Box sx={ { width: 'fit-content' } }>
                                     <SimpleGrid columns={ { base: 1, md: 1 } } spacing={ { base: 0, lg: 2 } }>
                                         <Box>
-                                            Facebook Followers
+                                            <Heading fontSize='18px'>
+                                                Colleges Joined
+                                            </Heading>
                                         </Box>
                                         <Box>
-                                            22.14% Since Last Week
+                                            6.09% Since Last Week
                                         </Box>
                                     </SimpleGrid>
                                 </Box>
@@ -116,15 +118,17 @@ const AdminDashboard: React.FC = () => {
                         <Card>
                             <SimpleGrid columns={ { base: 1, md: 2 } }>
                                 <Box sx={ { width: 'fit-content' } }>
-                                    <CircularProgress thickness='4px' value={ 30 } size='70px'/>
+                                    <CircularProgress thickness='4px' color='red.400' value={ 12 } size='70px'/>
                                 </Box>
                                 <Box sx={ { width: 'fit-content' } }>
                                     <SimpleGrid columns={ { base: 1, md: 1 } } spacing={ { base: 0, lg: 2 } }>
                                         <Box>
-                                            Facebook Followers
+                                            <Heading fontSize='18px'>
+                                                Schools Joined
+                                            </Heading>
                                         </Box>
                                         <Box>
-                                            22.14% Since Last Week
+                                            16.14% Since Last Week
                                         </Box>
                                     </SimpleGrid>
                                 </Box>
@@ -133,15 +137,15 @@ const AdminDashboard: React.FC = () => {
                         <Card>
                             <SimpleGrid columns={ { base: 1, md: 2 } }>
                                 <Box sx={ { width: 'fit-content' } }>
-                                    <CircularProgress thickness='4px' value={ 30 } size='70px'/>
+                                    <CircularProgress thickness='4px' color='green.400' value={ 22 } size='70px'/>
                                 </Box>
                                 <Box sx={ { width: 'fit-content' } }>
                                     <SimpleGrid columns={ { base: 1, md: 1 } } spacing={ { base: 0, lg: 2 } }>
                                         <Box>
-                                            Facebook Followers
+                                            <Heading fontSize={'18px'}>Others</Heading>
                                         </Box>
                                         <Box>
-                                            22.14% Since Last Week
+                                            12.14% Since Last Week
                                         </Box>
                                     </SimpleGrid>
                                 </Box>
