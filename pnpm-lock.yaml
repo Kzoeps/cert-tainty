@@ -13,6 +13,7 @@ specifiers:
   '@types/node': 17.0.36
   '@types/react': 18.0.9
   '@types/react-dom': 18.0.5
+  '@types/uuid': ^8.3.4
   antd: ^4.20.7
   apollo: ^2.34.0
   axios: ^0.27.2
@@ -43,6 +44,7 @@ dependencies:
   '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
   '@firebase/app-types': 0.7.0
   '@firebase/storage-types': 0.6.0_@firebase+app-types@0.7.0
+  '@types/uuid': 8.3.4
   antd: 4.20.7_ef5jwxihqo6n7gxfmzogljlgcm
   axios: 0.27.2
   ethers: 5.6.8
@@ -2766,6 +2768,10 @@ packages:
 
   /@types/use-sync-external-store/0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
+    dev: false
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: false
 
   /@typescript-eslint/parser/5.26.0_xztl6dhthcahlo6akmb2bmjmle:
