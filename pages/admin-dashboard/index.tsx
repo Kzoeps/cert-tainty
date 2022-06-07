@@ -31,11 +31,16 @@ const AdminDashboard: React.FC = () => {
             kycStatus: 'in_progress'
         }
     });
+    const data = {
+        approve: APPROVE,
+        Reject,
+        PROGRESS
+    }
     return (
         <Box>
             <Box m='32px'>
                 <Stack direction='row'>
-                    <BasicStatistics data={ PROGRESS?.profiles }/>
+                    <BasicStatistics data={ data }/>
                 </Stack>
             </Box>
             <Center>

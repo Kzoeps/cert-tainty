@@ -13,6 +13,8 @@ import { MdOutlinePersonAddDisabled } from 'react-icons/md';
 import { FaCloudDownloadAlt } from 'react-icons/fa';
 import { FiUserCheck } from 'react-icons/fi';
 import { UserData } from '../admin-components/admin.model';
+import { useQuery } from '@apollo/client';
+import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 
 interface StatsCardProps {
     title: string;
@@ -54,28 +56,30 @@ function StatsCard(props: StatsCardProps) {
     );
 }
 
-export default function BasicStatistics(props: {data: UserData[]}) {
+export default function BasicStatistics(props: {data: any}) {
+    const { data  } = useQuery(QUERY_PROFILES_STATUS);
+    console.log()
     return (
         <Box maxW="7xl" mx={'auto'} pt={2} px={{ base: 2, sm: 12, md: 17 }}>
             <SimpleGrid columns={{ base: 4, md: 4}} spacing={{ base: 5, lg: 8 }}>
                 <StatsCard
                     color='blue.300'
                     title={'Institutions'}
-                    stat={props?.data?.[0]?.totalUser?.toString() || '0'}
+                    stat={data?.profiles[0]?.approvedCount}
                     subTitle='32.78% Increase Since Last Week'
                     icon={<BsPerson color='#63B3ED' size={'3em'} />}
                 />
                 <StatsCard
                     color='green.500'
                     title={'Accepted Institutions'}
-                    stat={props?.data?.[0]?.approvedCount?.toString() || '0'}
+                    stat={data?.profiles[0]?.approvedCount}
                     subTitle='16.24% Increase Since Last Week'
                     icon={<FiUserCheck color='#38A169' size={'3em'} />}
                 />
                 <StatsCard
                     color='red.500'
                     title={'Rejected Institutions'}
-                    stat={props?.data?.[0]?.rejectedCount?.toString() || '0'}
+                    stat={data?.profiles[0]?.rejectedCount}
                     subTitle='3% Increase Since Last Week'
                     icon={<MdOutlinePersonAddDisabled color='#E53E3E' size={'3em'} />}
                 />
