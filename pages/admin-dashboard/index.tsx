@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card } from 'antd';
 import { Box, Center, CircularProgress, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
@@ -11,6 +11,7 @@ import { RejectedComponent } from '../../components/table/rejected.component';
 import Head from 'next/head';
 
 const AdminDashboard: React.FC = () => {
+    const walletRef = useRef<string | undefined>(undefined);
     const {data: APPROVE, error: approveError, loading: approveLoading}  = useQuery(QUERY_PROFILES_STATUS, {
         variables: {
             kycStatus: 'approved'

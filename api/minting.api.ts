@@ -8,6 +8,13 @@ export const MINT_CERTIFICATE = gql`
 		}
 	}
 `
+export const MINT_LETTER = gql`
+	mutation mintCertificate($attributes: CreateRecommendationLetterInput!) {
+		createCertificate(input: $attributes) {
+			id
+		}
+	}
+`
 
 export const GENERATE_CERTIFICATE = gql`
 	mutation generateCertificate($attributes: GenerateCertificatePdfInput!) {
