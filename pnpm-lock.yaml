@@ -9,6 +9,7 @@ specifiers:
   '@emotion/styled': ^11
   '@firebase/app-types': ^0.7.0
   '@firebase/storage-types': ^0.6.0
+  '@types/file-saver': ^2.0.5
   '@types/graphql': ^14.5.0
   '@types/node': 17.0.36
   '@types/react': 18.0.9
@@ -19,6 +20,7 @@ specifiers:
   eslint: 8.16.0
   eslint-config-next: 12.1.6
   ethers: ^5.6.8
+  file-saver: ^2.0.5
   firebase: ^9.6.3
   formik: ^2.2.9
   framer-motion: ^6
@@ -28,8 +30,10 @@ specifiers:
   react: 18.1.0
   react-dom: 18.1.0
   react-icons: ^4.3.1
+  react-qr-code: ^2.0.7
   recharts: ^2.1.10
   typescript: 4.7.2
+  uuid: ^8.3.2
   wagmi: ^0.4.4
 
 dependencies:
@@ -44,6 +48,7 @@ dependencies:
   antd: 4.20.7_ef5jwxihqo6n7gxfmzogljlgcm
   axios: 0.27.2
   ethers: 5.6.8
+  file-saver: 2.0.5
   firebase: 9.8.2
   formik: 2.2.9_react@18.1.0
   framer-motion: 6.3.5_ef5jwxihqo6n7gxfmzogljlgcm
@@ -53,10 +58,13 @@ dependencies:
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
   react-icons: 4.3.1_react@18.1.0
+  react-qr-code: 2.0.7_react@18.1.0
   recharts: 2.1.10_ef5jwxihqo6n7gxfmzogljlgcm
+  uuid: 8.3.2
   wagmi: 0.4.4_jap5a6nteegyjh6qk6qhbbfud4
 
 devDependencies:
+  '@types/file-saver': 2.0.5
   '@types/graphql': 14.5.0
   '@types/node': 17.0.36
   '@types/react': 18.0.9
@@ -2687,6 +2695,10 @@ packages:
       '@types/node': 17.0.36
     dev: false
 
+  /@types/file-saver/2.0.5:
+    resolution: {integrity: sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==}
+    dev: true
+
   /@types/graphql/14.5.0:
     resolution: {integrity: sha512-MOkzsEp1Jk5bXuAsHsUi6BVv0zCO+7/2PTiZMXWDSsMXvNU6w/PLMQT2vHn8hy2i0JqojPz1Sz6rsFjHtsU0lA==}
     deprecated: This is a stub types definition. graphql provides its own type definitions, so you do not need this installed.
@@ -5113,6 +5125,10 @@ packages:
       flat-cache: 3.0.4
     dev: true
 
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
+
   /filelist/1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
     dependencies:
@@ -5708,14 +5724,14 @@ packages:
       side-channel: 1.0.4
     dev: true
 
+  /internmap/1.0.1:
+    resolution: {integrity: sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw==}
+    dev: false
+
   /interpret/1.4.0:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
     engines: {node: '>= 0.10'}
     dev: true
-
-  /internmap/1.0.1:
-    resolution: {integrity: sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw==}
-    dev: false
 
   /invariant/2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -6855,6 +6871,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /qr.js/0.0.0:
+    resolution: {integrity: sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ==}
+    dev: false
+
   /qrcode/1.4.4:
     resolution: {integrity: sha512-oLzEC5+NKFou9P0bMj5+v6Z40evexeE29Z9cummZXZ9QXyMr3lphkURzxjXgPJC5azpxcshoDWV1xE46z+/c3Q==}
     engines: {node: '>=4'}
@@ -7493,6 +7513,20 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
+  /react-qr-code/2.0.7_react@18.1.0:
+    resolution: {integrity: sha512-NpknL80p7dWbLdHfBSIxQIqLCu3+kBlyzYD692rO0UnVwfCSziIxc1xn/p3JhPEv1RV1lRD8j0w+hR3L7tawTQ==}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+      react-native-svg: '*'
+    peerDependenciesMeta:
+      react-native-svg:
+        optional: true
+    dependencies:
+      prop-types: 15.8.1
+      qr.js: 0.0.0
+      react: 18.1.0
+    dev: false
+
   /react-query/4.0.0-beta.19_ef5jwxihqo6n7gxfmzogljlgcm:
     resolution: {integrity: sha512-0QR8coF2WFih9p7s25h+QM9HDhlyr6Q1Pj8dWe0j1qjxku3egt0v7W9XqHiovZlIYlwyChOBeQ/3wQqWdUfUWg==}
     peerDependencies:
@@ -7634,6 +7668,16 @@ packages:
       util-deprecate: 1.0.2
     dev: false
 
+  /recast/0.21.1:
+    resolution: {integrity: sha512-PF61BHLaOGF5oIKTpSrDM6Qfy2d7DIx5qblgqG+wjqHuFH97OgAqBYFIJwEuHTrM6pQGT17IJ8D0C/jVu/0tig==}
+    engines: {node: '>= 4'}
+    dependencies:
+      ast-types: 0.15.2
+      esprima: 4.0.1
+      source-map: 0.6.1
+      tslib: 2.4.0
+    dev: true
+
   /recharts-scale/0.4.5:
     resolution: {integrity: sha512-kivNFO+0OcUNu7jQquLXAxz1FIwZj8nrj+YkOKc5694NbjCvcT6aSZiIzNzd2Kul4o4rTto8QVR9lMNtxD4G1w==}
     dependencies:
@@ -7664,23 +7708,6 @@ packages:
       - prop-types
     dev: false
 
-  /reduce-css-calc/2.1.8:
-    resolution: {integrity: sha512-8liAVezDmUcH+tdzoEGrhfbGcP7nOV4NkGE3a74+qqvE7nt9i4sKLGBuZNOnpI4WiGksiNPklZxva80061QiPg==}
-    dependencies:
-      css-unit-converter: 1.1.2
-      postcss-value-parser: 3.3.1
-    dev: false
-
-  /recast/0.21.1:
-    resolution: {integrity: sha512-PF61BHLaOGF5oIKTpSrDM6Qfy2d7DIx5qblgqG+wjqHuFH97OgAqBYFIJwEuHTrM6pQGT17IJ8D0C/jVu/0tig==}
-    engines: {node: '>= 4'}
-    dependencies:
-      ast-types: 0.15.2
-      esprima: 4.0.1
-      source-map: 0.6.1
-      tslib: 2.4.0
-    dev: true
-
   /rechoir/0.6.2:
     resolution: {integrity: sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=}
     engines: {node: '>= 0.10'}
@@ -7693,6 +7720,13 @@ packages:
     dependencies:
       esprima: 4.0.1
     dev: true
+
+  /reduce-css-calc/2.1.8:
+    resolution: {integrity: sha512-8liAVezDmUcH+tdzoEGrhfbGcP7nOV4NkGE3a74+qqvE7nt9i4sKLGBuZNOnpI4WiGksiNPklZxva80061QiPg==}
+    dependencies:
+      css-unit-converter: 1.1.2
+      postcss-value-parser: 3.3.1
+    dev: false
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
@@ -8487,6 +8521,11 @@ packages:
       has-symbols: 1.0.3
       object.getownpropertydescriptors: 2.1.4
     dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}

@@ -12,11 +12,11 @@ import {
     Text,
     Link, Center
 } from '@chakra-ui/react';
-import { VscOpenPreview } from 'react-icons/vsc';
 import { useMutation } from '@apollo/client';
 import { PROFILE_MUTATION } from '../../api/admin.api';
-import { useEffect, useState } from 'react';
+import { saveAs } from "file-saver";
 import { UserData } from '../admin-components/admin.model';
+import { BsDownload } from 'react-icons/bs';
 
 export function TableComponent(data: {profiles: UserData[]}) {
     const [action, {data: returnValue, loading}] = useMutation(PROFILE_MUTATION );
@@ -24,19 +24,12 @@ export function TableComponent(data: {profiles: UserData[]}) {
     // useEffect(() => {
     //     console.log(returnValue)
     // }, [returnValue])
-    const fileDownload = (url: string) => {
-        const uri = window.URL.createObjectURL(
-            new Blob([url]),
+    const saveFile = (uri: string) => {
+        saveAs(
+            uri,
+            "example.pdf"
         );
-        const link = document.createElement('a');
-        link.href = uri;
-        link.setAttribute(
-            'download',
-            `FileName.pdf`,
-        );
-        document.body.appendChild(link);
-        link.click();
-    }
+    };
     return(
         <TableContainer>
             <Table variant='striped'>
@@ -60,7 +53,7 @@ export function TableComponent(data: {profiles: UserData[]}) {
                                 <Td>{data?.institutionType}</Td>
                                 <Td>
                                     <Center>
-                                        <VscOpenPreview cursor='pointer' size='34px' onClick={() => fileDownload(data.documentUrl[0])} />
+                                        <BsDownload cursor='pointer' size='34px' onClick={() => saveFile(data.documentUrl[0])} />
                                     </Center>
                                 </Td>
                                 <Td>
