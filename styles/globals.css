@@ -8,9 +8,16 @@ body {
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.mintView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

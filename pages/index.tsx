@@ -28,7 +28,7 @@ export default function Home() {
 				<title>Cert-Tainty</title>
 			</Head>
 
-			<Container maxW={'100%'} bg={'gray.50'} height={'75vh'}>
+			<Container maxW={'100%'} bg={'gray.50'} height={'100vh'}>
 				<Center>
 					<Stack
 						maxW={'3xl'}
