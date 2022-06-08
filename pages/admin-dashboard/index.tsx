@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from 'antd';
-import type { TableProps } from 'antd/lib/table';
 import { Box, Center, CircularProgress, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
 import Example from '../../components/admin-components/admin.component';
@@ -9,12 +8,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { useQuery } from '@apollo/client';
 import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 import { RejectedComponent } from '../../components/table/rejected.component';
-import { DataType } from '../../components/admin-components/admin.model';
 import Head from 'next/head';
-
-const onChange: TableProps<DataType>['onChange'] = ( pagination, filters, sorter, extra ) => {
-    console.log( 'params', pagination, filters, sorter, extra );
-};
 
 const AdminDashboard: React.FC = () => {
     const {data: APPROVE, error: approveError, loading: approveLoading}  = useQuery(QUERY_PROFILES_STATUS, {
