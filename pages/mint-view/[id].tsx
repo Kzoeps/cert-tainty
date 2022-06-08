@@ -101,14 +101,12 @@ export const MintView = (props: MintViewProps) => {
 	}, [])
 	return (
 		<>
-			<Center w="100%" bg="gray.50">
-				<Flex minH="100vh" align="center" justify="center" bg="gray.50">
-					<VStack mt={8} mb={12}>
-						<HStack w={'3xl'} mb={6} pl={0}>
+			<Flex direction={'column'} alignItems='center' justifyContent={'center'} my={5}>
+						<HStack w={'60%'} pl={0}>
 							<InputGroup>
 								<InputLeftElement
 									pointerEvents="none"><SearchIcon color="black"/></InputLeftElement>
-								<Input onChange={(val) => { setSearch(val.target.value) } } boxShadow={'md'} bg={'white'} variant='filled' type="tel" placeholder="Certificate ID"/>
+								<Input onChange={(val) => { setSearch(val.target.value) } } boxShadow={'md'} bg={'white'} border={'1px'} variant='outline' type="tel" placeholder="Certificate ID" size='md'/>
 							</InputGroup>
 							<Button
 								/* flex={1} */
@@ -129,79 +127,84 @@ export const MintView = (props: MintViewProps) => {
 								Search
 							</Button>
 						</HStack>
-						<VStack w="3xl" rounded={'lg'} boxShadow={'lg'} mt={4} mb={4} bg={'white'}>
-							<Stack w="100%" bg={'white'} py={2} pl={24} height={440}>
-								{certData?.image  ? <img width={'88%'} alt="certificate"
+						<Flex w="100%" rounded={'lg'} boxShadow={'lg'} my={5} bg={'white'}>
+							<Stack w="100%" bg={'white'} py={2} pl={24} h={'70%'}>
+								{certData?.image  ? <img width={'100%'} height={'70%'} alt="certificate"
 										 src={certData?.image as string}/> : <Spinner style={{position: 'absolute', left: '50%', top: '50%'}}/>}
 							</Stack>
-							<Stack as={Box} w={'100%'} h={300} py={4} pl={10} pr={10} bg="#F9F9F9"
+							<Flex direction={'column'}  justifyContent={'center'} as={Box} bg={'white'} w={'50%'} h={'100%'} mt={20} py={4} pl={10} pr={10} 
 								   textAlign={'left'}>
-								<Skeleton isLoaded={!!certData?.name}>
-									<Flex gap={2}>
-										<FaUserAlt style={{marginTop: '3px', color: '#48BB78'}} size={'18px'}/> <Heading
-										as="h4" size={'md'}>Name</Heading>
-									</Flex>
-									<Text fontSize="lg">
-										{certData?.name}
-									</Text>
-								</Skeleton>
-								<Skeleton isLoaded={!!certData?.attributes}>
-									<Flex gap={2}>
-										<AiFillBook style={{marginTop: '3px', color: '#48BB78'}} size={'18px'}/>
-										<Heading
-											as="h4" size={'md'}>Major</Heading>
-									</Flex>
-									<Text fontSize="lg">
-										{findAttribute('Major', certData?.attributes || []) ?? ''}
-									</Text>
-								</Skeleton>
-								<Skeleton isLoaded={!!certData?.attributes}>
-									<Flex gap={2}>
-										<BsFillCalendarDateFill style={{marginTop: '3px', color: '#48BB78'}}
-																size={'18px'}/>
-										<Heading
-											as="h4" size={'md'}>Date Awarded</Heading>
-									</Flex>
-									<Text fontSize="lg">
-										{findAttribute('Date Awarded', certData?.attributes || []) ?? ''}
-									</Text>
-								</Skeleton>
-								<Skeleton isLoaded={!!certData?.description}>
-									<Flex gap={2}>
-										<MdDescription style={{marginTop: '3px', color: '#48BB78'}} size={'20px'}/>
-										<Heading
-											as="h4" size={'md'}>Description</Heading>
-									</Flex>
-									<Text fontSize="lg">
-										{certData?.description ?? ''}
-									</Text>
-								</Skeleton>
-								<HStack spacing={6}>
+								<Flex direction={'column'}>
+									<Skeleton isLoaded={!!certData?.name} mt={6}> 
+										<Flex gap={2} fontSize="3xl">
+											<Heading as="h4">Name:</Heading>
+											<Text  fontSize="3xl">
+											{certData?.name}
+										</Text>
+										</Flex>									
+									</Skeleton>
+									<Skeleton isLoaded={!!certData?.attributes} mt={8}>
+										<Flex gap={2}>
+											<Heading
+												as="h4" size={'md'}>Major:
+											</Heading>
+											<Text fontSize="lg">
+											{findAttribute('Major', certData?.attributes || []) ?? ''}
+											</Text>
+										</Flex>
+									</Skeleton>
+									<Skeleton isLoaded={!!certData?.attributes} mt={8}>
+										<Flex gap={2}>
+											<Heading
+												as="h4" size={'md'}>Date Awarded:</Heading>
+											<Text fontSize="lg">
+											{findAttribute('Date Awarded', certData?.attributes || []) ?? ''}
+											</Text>
+										</Flex>
+										
+									</Skeleton>
+									<Skeleton isLoaded={!!certData?.description} mt={8}>
+										<Flex gap={2}>
+											<Heading
+												as="h4" size={'md'}>Description:</Heading>
+											<Text fontSize="lg">
+											{certData?.description ?? ''}
+										</Text>
+										</Flex>
+										
+									</Skeleton>
+								</Flex>
+								<HStack spacing={6} mt={8}>
 									<Skeleton isLoaded={!!openSeaUrl}>
 										<Link target="_blank" rel="noreferrer noopener" href={openSeaUrl as string}>
-											<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
-												View on Open Sea <FiExternalLink style={{marginTop: '3px'}}/>
-											</Text>
+											<Button
+											 bg={'green.400'}
+											color={'white'} 
+											_hover={{ bg: 'green.500' }}
+											rightIcon={<FiExternalLink/>}>
+											View on Open Sea
+											</Button>
 										</Link>
 									</Skeleton>
 									{!!certId &&
 										<Skeleton isLoaded={!!openSeaUrl}>
 											<Link onClick={handleDownload}>
 												{loading ? <Spinner/> :
-													<Text style={{display: 'flex', gap: '5px'}}
-														  decoration={'underline'}>
-														Download certificate <GoCloudDownload
-														style={{marginTop: '3px'}}/>
-													</Text>}
+													<Button
+											 		color={'green.400'}
+													 variant='outline'
+													rightIcon={<GoCloudDownload/>}>
+													Download certificate
+													</Button>
+													}
+
 											</Link>
 										</Skeleton>
 									}
 								</HStack>
-							</Stack>
-						</VStack>
-					</VStack>
-					</Flex>
-			</Center>
+							</Flex>
+						</Flex>
+				</Flex>
         </>
     )
 }
