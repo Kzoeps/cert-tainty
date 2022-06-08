@@ -52,14 +52,14 @@ export default function SignUp() {
 					<Heading
 						lineHeight={1.1}
 						fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
-						Senior web designers{' '}
+						Certificate Minting{' '}
 						<Text
 							as={'span'}
 							bgGradient="linear(to-r, green.400,green.800)"
 							bgClip="text">
 							&
 						</Text>{' '}
-						Full-Stack Developers
+						Certificate Verification
 					</Heading>
 					<Stack direction={'row'} spacing={4} align={'center'}>
 						<AvatarGroup>
@@ -140,8 +140,8 @@ export default function SignUp() {
 							</Text>
 						</Heading>
 						<Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-							We’re looking for amazing engineers just like you! Become a part
-							of our rockstar engineering team and skyrocket your career!
+							Join 10+ other colleges using cutting edge blockchain technology to help
+							further their growth.
 						</Text>
 					</Stack>
 					<Box as={'form'} mt={10}>
