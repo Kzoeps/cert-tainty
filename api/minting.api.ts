@@ -9,9 +9,10 @@ export const MINT_CERTIFICATE = gql`
 	}
 `
 export const MINT_LETTER = gql`
-	mutation mintCertificate($attributes: CreateRecommendationLetterInput!) {
-		createCertificate(input: $attributes) {
+	mutation createRecommendationLetter($attributes: CreateRecommendationLetterInput!) {
+		createRecommendationLetter(input: $attributes) {
 			id
+			message
 		}
 	}
 `

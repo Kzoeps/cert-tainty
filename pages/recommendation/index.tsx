@@ -1,5 +1,16 @@
-import { background, Box, Button, Heading, Input, SimpleGrid, Text, Textarea } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import {
+    background,
+    Box,
+    Button,
+    Heading,
+    Input,
+    Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader,
+    ModalOverlay,
+    SimpleGrid,
+    Text,
+    Textarea, useDisclosure
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import { useMutation } from '@apollo/client';
 import { MINT_LETTER } from '../../api/minting.api';
@@ -7,6 +18,11 @@ import { MINT_LETTER } from '../../api/minting.api';
 export function Recommendation() {
     const [ message, setMessage ] = useState( '' );
     const [sendLetter, { data, error, loading }] = useMutation(MINT_LETTER);
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    useEffect(() => {
+       onOpen
+    }, [data]);
     return (
         <Box p='32px'>
             <SimpleGrid columns={ { base: 1, md: 2 } } spacing={ { base: 5, lg: 8 } }>
@@ -20,7 +36,12 @@ export function Recommendation() {
                         <Textarea resize='none' placeholder='Typing...' height={'100vh'} onChange={ ( text ) => setMessage( text.target.value ) }/>
                             <Button onClick={() => sendLetter({
                                 variables: {
-
+                                    input:{
+                                        attributes: {
+                                            message,
+                                            id:''
+                                        }
+                                    }
                                 }
                             }) } _hover={ { background: 'green.500' }} width='100%' mt='24px' backgroundColor='green.400' color='white'> Generate Signature </Button>
                     </Box>
@@ -36,6 +57,25 @@ export function Recommendation() {
                     </>
                 </Card>
             </SimpleGrid>
+
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            {data}
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                Close
+                            </Button>
+                            <Button variant='ghost'>Secondary Action</Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+
         </Box>
     )
 }
