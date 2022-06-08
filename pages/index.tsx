@@ -27,7 +27,7 @@ export default function Home() {
 				/>
 				<title>Cert-Tainty</title>
 			</Head>
-				
+
 			<Container maxW={'100%'} bg={'gray.50'} height={'75vh'}>
 				<Center>
 					<Stack
@@ -40,15 +40,14 @@ export default function Home() {
 							fontWeight={600}
 							fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
 							lineHeight={'110%'}>
-							Make money from <br />
+							Parchment: Easily create<br />
 							<Text as={'span'} color={'green.400'}>
-								your audience
+								and verify certificates
 							</Text>
 						</Heading>
 						<Text color={'gray.500'}>
-							Monetize your content by charging your most loyal readers and reward
-							them loyalty points. Give back to your loyal readers by granting
-							them access to your pre-releases and sneak-peaks.
+							Mint your certificates as NFTs to make sure that they can be tracked and verified. Ensure that
+							each certificate issued by you is verifiable and backed by cryptography!
 						</Text>
 						<Stack
 							direction={'column'}

@@ -184,14 +184,18 @@ export const MintView = (props: MintViewProps) => {
 											</Text>
 										</Link>
 									</Skeleton>
-									<Skeleton isLoaded={!!certId}>
-										<Link onClick={handleDownload}>
-											{loading ? <Spinner/> :
-												<Text style={{display: 'flex', gap: '5px'}} decoration={'underline'}>
-													Download certificate <GoCloudDownload style={{marginTop: '3px'}}/>
-												</Text>}
-										</Link>
-									</Skeleton>
+									{!!certId &&
+										<Skeleton isLoaded={!!openSeaUrl}>
+											<Link onClick={handleDownload}>
+												{loading ? <Spinner/> :
+													<Text style={{display: 'flex', gap: '5px'}}
+														  decoration={'underline'}>
+														Download certificate <GoCloudDownload
+														style={{marginTop: '3px'}}/>
+													</Text>}
+											</Link>
+										</Skeleton>
+									}
 								</HStack>
 							</Stack>
 						</VStack>
