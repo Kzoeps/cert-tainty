@@ -58,6 +58,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	})
 	const routeDifferrent = async () => {
 		refetch().then((response) => {
+			console.log(response, 'kyc query')
 			const kycStatus = response?.data?.profile?.kycStatus as KycStatusEnum;
 			const route = KYC_PROGRESS_ROUTES[kycStatus];
 			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {

@@ -11,8 +11,8 @@ export enum KycStatusEnum {
 
 
 export const KYC_PROGRESS_ROUTES = {
-	[KycStatusEnum.rejected]: 'verification/rejected',
-	[KycStatusEnum.in_progress]: 'verification/in-progress',
+	[KycStatusEnum.rejected]: 'sign-up/verification/rejected',
+	[KycStatusEnum.in_progress]: 'sign-up/verification/in-progress',
 	[KycStatusEnum.approved]: '/mint'
 }
 
