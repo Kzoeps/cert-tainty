@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Input, SimpleGrid, Text, Textarea } from '@chakra-ui/react';
+import { background, Box, Button, Heading, Input, SimpleGrid, Text, Textarea } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Card } from 'antd';
 
@@ -15,10 +15,7 @@ export function Recommendation() {
                     </Box>
                     <Box>
                         <Textarea resize='none' placeholder='Typing...' height={'100vh'} onChange={ ( text ) => setMessage( text.target.value ) }/>
-                        <SimpleGrid columns={{ md:2 }} spacing={{ md: 4 }}>
-                            <Button mt='24px' backgroundColor='green.400' color='white'> Generate Signature </Button>
-                            <Button mt='24px' backgroundColor='green.400' color='white'> Sumbit </Button>
-                        </SimpleGrid>
+                            <Button _hover={ { background: 'green.500' }} width='100%' mt='24px' backgroundColor='green.400' color='white'> Generate Signature </Button>
                     </Box>
                 </Card>
                 <Card>
