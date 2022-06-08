@@ -21,7 +21,7 @@ export function Recommendation() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     useEffect(() => {
-       onOpen
+       data && onOpen()
     }, [data]);
     return (
         <Box p='32px'>
@@ -39,7 +39,6 @@ export function Recommendation() {
                                     input:{
                                         attributes: {
                                             message,
-                                            id:''
                                         }
                                     }
                                 }
