@@ -10,13 +10,13 @@ import {
 	Menu,
 	MenuButton,
 	MenuItem,
-	MenuList,
+	MenuList, Spinner,
 	Stack,
 	Text,
 	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {VERIFICATION_FORM_INIT, VerificationFormI} from '../../../models/_auth.models';
 import {Form, Formik} from 'formik';
 import ParchmentUpload from '../../../components/upload/upload';
@@ -30,6 +30,7 @@ import {useRouter} from 'next/router';
 import {useMutation, useQuery} from '@apollo/client';
 import {QUERY_VERIFICATION_STATUS, VERIFY_KYC} from '../../../api/kyc.api';
 import {InstitutionEnum, KYC_PROGRESS_ROUTES, KYC_ROUTE_ENUMS, KycStatusEnum} from '../../../models/parchment.models';
+import Head from 'next/head';
 
 const uploadVerifFile = async (file: File, wallet_address: string | undefined): Promise<string | undefined> => {
 	if (wallet_address) {
@@ -53,6 +54,7 @@ export default function VerificationForm() {
 		...UPLOAD_PROPS,
 		beforeUpload: (file) => {
 			setFiles((files) => [...files, file as File]);
+			return false;
 		}
 	};
 	const handleSubmit = async ({firstName, lastName, institutionName, email, institutionType}: VerificationFormI) => {
@@ -89,7 +91,7 @@ export default function VerificationForm() {
 			const kycStatus = response?.data?.profile?.kycStatus as KycStatusEnum;
 			const route = KYC_PROGRESS_ROUTES[kycStatus];
 			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
-				void router.push(`verification/${route}`);
+				void router.push(route);
 			}
 		});
 	}, [router, refetch, verifLoading]);
@@ -97,6 +99,9 @@ export default function VerificationForm() {
 	/* eslint-disable */
 	return (
 		<>
+			<Head>
+				<title>Parchment Verification</title>
+			</Head>
 			<Formik initialValues={VERIFICATION_FORM_INIT} onSubmit={handleSubmit}>
 				{(formik) => (
 					<Form>
@@ -143,7 +148,7 @@ export default function VerificationForm() {
 											<MenuButton>
 												<FormControl id="type" isRequired>
 													<FormLabel> Institution Type </FormLabel>
-													<Input value={formik.values.institutionType} name="institutionName"/>
+													<Input value={formik.values.institutionType} readOnly name="institutionName"/>
 												</FormControl>
 											</MenuButton>
 											<MenuList>

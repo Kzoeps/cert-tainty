@@ -7,6 +7,9 @@ import CertIconButton from '../icon-button/icon-button';
 import axios, {AxiosResponse} from 'axios';
 import {useRouter} from 'next/router';
 import {SUCCESS_T_CONST} from '../../models/parchment.constants';
+import {useQuery} from '@apollo/client';
+import {QUERY_VERIFICATION_STATUS} from '../../api/kyc.api';
+import {KYC_PROGRESS_ROUTES, KYC_ROUTE_ENUMS, KycStatusEnum} from '../../models/parchment.models';
 
 export interface WalletListProps {
 	isSignUp?: boolean
@@ -28,6 +31,7 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 	const nonceRef = useRef<string | undefined>(undefined);
 	const URL = process.env.NEXT_PUBLIC_RR_API;
 	const {data, isLoading, isError} = useAccount();
+	const {loading: verifLoading, refetch} = useQuery(QUERY_VERIFICATION_STATUS);
 	const {signMessage} = useSignMessage({
 		onSuccess(signatureData,variables) {
 			if (walletRef.current && nonceRef.current) {
@@ -45,12 +49,22 @@ export function WalletList({isSignUp = true}: WalletListProps) {
 						title: 'Logged in successfully',
 						...SUCCESS_T_CONST
 					});
+					void routeDifferrent();
 				}).finally(() => {
 					setShowLoading(false)
 				})
 			}
 		}
 	})
+	const routeDifferrent = async () => {
+		refetch().then((response) => {
+			const kycStatus = response?.data?.profile?.kycStatus as KycStatusEnum;
+			const route = KYC_PROGRESS_ROUTES[kycStatus];
+			if (KYC_ROUTE_ENUMS.includes(kycStatus)) {
+				void router.push(route);
+			}
+		});
+	}
 	const {disconnect} = useDisconnect();
 	const toast = useToast();
 

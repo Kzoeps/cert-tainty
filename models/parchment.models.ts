@@ -11,9 +11,9 @@ export enum KycStatusEnum {
 
 
 export const KYC_PROGRESS_ROUTES = {
-	[KycStatusEnum.rejected]: 'rejected',
-	[KycStatusEnum.in_progress]: 'in-progress',
-	[KycStatusEnum.approved]: ''
+	[KycStatusEnum.rejected]: 'verification/rejected',
+	[KycStatusEnum.in_progress]: 'verification/in-progress',
+	[KycStatusEnum.approved]: '/mint'
 }
 
 export interface MintForm {
@@ -31,3 +31,15 @@ export const MINT_FORM_INIT: Record<keyof MintForm, string> = {
 }
 
 export const KYC_ROUTE_ENUMS = [KycStatusEnum.approved, KycStatusEnum.in_progress, KycStatusEnum.rejected];
+
+export interface NftAttributes {
+	trait_type: string;
+	value: string;
+}
+
+export interface MetaData {
+	image: string;
+	description: string;
+	name: string;
+	attributes: NftAttributes[]
+}

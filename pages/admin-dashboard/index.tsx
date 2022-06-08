@@ -9,6 +9,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { useQuery } from '@apollo/client';
 import { QUERY_PROFILES_STATUS } from '../../api/admin.api';
 import { RejectedComponent } from '../../components/table/rejected.component';
+import Head from 'next/head';
 
 const AdminDashboard: React.FC = () => {
     const {data: APPROVE, error: approveError, loading: approveLoading}  = useQuery(QUERY_PROFILES_STATUS, {
@@ -32,6 +33,10 @@ const AdminDashboard: React.FC = () => {
         PROGRESS
     }
     return (
+		<>
+			<Head>
+				<title>Admin Dashboard</title>
+			</Head>
         <Box>
             <Box m='32px'>
                 <Stack direction='row'>
@@ -177,11 +182,12 @@ const AdminDashboard: React.FC = () => {
                         <Heading as='h4' size='md' my='12px'>
                             INSTITUTION
                         </Heading>
-                        <TableComponent profiles={APPROVE?.profiles}/>
+                        <TableComponent profiles={PROGRESS?.profiles}/>
                     </Card>
                 </Box>
             </Center>
         </Box>
+		</>
     )
 };
 

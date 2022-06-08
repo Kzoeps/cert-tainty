@@ -3,4 +3,4 @@ import {storage} from '../firebase.config';
 
 export const createRef = (refName: string) => ref(storage, refName);
 
-export const uploadFile = (ref: StorageReference, file: File): Promise<any> => uploadBytes(ref, file);
+export const uploadFile = (ref: StorageReference, file: File, metadata?: any): Promise<any> => metadata ? uploadBytes(ref, file, metadata) : uploadBytes(ref, file);

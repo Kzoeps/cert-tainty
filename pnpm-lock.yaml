@@ -14,6 +14,7 @@ specifiers:
   '@types/node': 17.0.36
   '@types/react': 18.0.9
   '@types/react-dom': 18.0.5
+  '@types/uuid': ^8.3.4
   antd: ^4.20.7
   apollo: ^2.34.0
   axios: ^0.27.2
@@ -25,6 +26,7 @@ specifiers:
   formik: ^2.2.9
   framer-motion: ^6
   graphql: ^16.5.0
+  loaders.css: ^0.1.2
   lodash: ^4.17.21
   next: 12.1.6
   react: 18.1.0
@@ -45,6 +47,7 @@ dependencies:
   '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
   '@firebase/app-types': 0.7.0
   '@firebase/storage-types': 0.6.0_@firebase+app-types@0.7.0
+  '@types/uuid': 8.3.4
   antd: 4.20.7_ef5jwxihqo6n7gxfmzogljlgcm
   axios: 0.27.2
   ethers: 5.6.8
@@ -53,6 +56,7 @@ dependencies:
   formik: 2.2.9_react@18.1.0
   framer-motion: 6.3.5_ef5jwxihqo6n7gxfmzogljlgcm
   graphql: 16.5.0
+  loaders.css: 0.1.2
   lodash: 4.17.21
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
   react: 18.1.0
@@ -2774,6 +2778,10 @@ packages:
 
   /@types/use-sync-external-store/0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
+    dev: false
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: false
 
   /@typescript-eslint/parser/5.26.0_xztl6dhthcahlo6akmb2bmjmle:
@@ -6161,6 +6169,10 @@ packages:
       strip-bom: 3.0.0
       type-fest: 0.3.1
     dev: true
+
+  /loaders.css/0.1.2:
+    resolution: {integrity: sha512-Rhowlq24ey1VOeor+3wYOt9+MjaxBOJm1u4KlQgNC3+0xJ0LS4wq4iG57D/BPzvuD/7HHDGQOWJ+81oR2EI9bQ==}
+    dev: false
 
   /locate-path/2.0.0:
     resolution: {integrity: sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA==}
