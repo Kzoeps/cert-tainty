@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from 'antd';
-import type { TableProps } from 'antd/lib/table';
 import { Box, Center, CircularProgress, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import BasicStatistics from '../../components/cards/card.component';
 import Example from '../../components/admin-components/admin.component';
