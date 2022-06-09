@@ -60,17 +60,20 @@ export function Recommendation() {
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalHeader>Your Recommendation Id is</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            {data}
+                           <Box>
+                               {data}
+                           </Box>
+
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            <Button colorScheme='red.400' mr={3} onClick={onClose}>
                                 Close
                             </Button>
-                            <Button variant='ghost'>Secondary Action</Button>
+                            <Button variant='green.400'>Secondary Action</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
