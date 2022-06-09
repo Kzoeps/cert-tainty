@@ -15,6 +15,7 @@ import {ABI, CONTRACT_ADDRESS, SUCCESS_T_CONST} from '../../models/parchment.con
 import {css} from '@emotion/react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
+import Swal from 'sweetalert2'
 
 export interface MintProps {
 }
@@ -129,10 +130,16 @@ const MintProps = (props: MintProps) => {
 		try {
 			const result = await connectedContract.getTokenId();
 			const id = result._hex;
-			toast({
+			// toast({
+			// 	title: 'Successfully minted your certificate',
+			// 	...SUCCESS_T_CONST
+			// });
+			Swal.fire({
 				title: 'Successfully minted your certificate',
-				...SUCCESS_T_CONST
-			});
+				text: 'Do you want to continue',
+				icon: 'success',
+				confirmButtonText: 'Continue'
+			})
 			await router.push(`/mint-view/${id}?certId=${certificateRef.current}`);
 		} catch (e) {
 			console.log(e);
