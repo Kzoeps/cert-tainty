@@ -1,12 +1,11 @@
-import { background } from '@chakra-ui/react'
 import Swal from 'sweetalert2'
 
 export default function ValidLetter() {
   Swal.fire({
-    title: 'Done!',
+    title: 'Valid Recommendation letter',
     text: 'Do you want to continue',
     icon: 'success',
-    confirmButtonText: 'Cool'
+    confirmButtonText: 'Proceed'
   })
   return(
     <div 
