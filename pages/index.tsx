@@ -84,7 +84,7 @@ export default function Home() {
 									right={'-125px'}
 									top={'-15px'}
 									transform={'rotate(10deg)'}>
-									Starting at $15/mo
+									Starting at BTN 3000/mo
 								</Text>
 							</Box>
 						</Stack>
