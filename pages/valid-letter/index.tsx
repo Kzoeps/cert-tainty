@@ -1,4 +1,3 @@
-import { background } from '@chakra-ui/react'
 import Swal from 'sweetalert2'
 
 export default function ValidLetter() {
