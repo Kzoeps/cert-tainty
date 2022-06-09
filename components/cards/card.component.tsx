@@ -58,7 +58,6 @@ function StatsCard(props: StatsCardProps) {
 
 export default function BasicStatistics(props: {data: any}) {
     const { data  } = useQuery(QUERY_PROFILES_STATUS);
-    console.log()
     return (
         <Box maxW="7xl" mx={'auto'} pt={2} px={{ base: 2, sm: 12, md: 17 }}>
             <SimpleGrid columns={{ base: 4, md: 4}} spacing={{ base: 5, lg: 8 }}>
@@ -86,7 +85,7 @@ export default function BasicStatistics(props: {data: any}) {
                 <StatsCard
                     color='black.500'
                     title={'NFT Mint'}
-                    stat={'1,117'}
+                    stat={'120'}
                     subTitle='12.14% Increase Since Last Week'
                     icon={<FaCloudDownloadAlt size={'3em'} color='#cccccc' />}
                 />

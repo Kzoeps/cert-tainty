@@ -11,7 +11,6 @@ import { RejectedComponent } from '../../components/table/rejected.component';
 import Head from 'next/head';
 
 const AdminDashboard: React.FC = () => {
-    const walletRef = useRef<string | undefined>(undefined);
     const {data: APPROVE, error: approveError, loading: approveLoading}  = useQuery(QUERY_PROFILES_STATUS, {
         variables: {
             kycStatus: 'approved'
@@ -77,7 +76,7 @@ const AdminDashboard: React.FC = () => {
                                         </Heading>
                                         <Box my='12px'>
                                             <Text fontWeight='bold'>
-                                                $87,493
+                                                Nu. 87,493
                                             </Text>
                                             <Text>
                                                 5.43% Since Last Month
