@@ -34,6 +34,7 @@ specifiers:
   react-icons: ^4.3.1
   react-qr-code: ^2.0.7
   recharts: ^2.1.10
+  sweetalert2: ^11.4.17
   typescript: 4.7.2
   uuid: ^8.3.2
   wagmi: ^0.4.4
@@ -64,6 +65,7 @@ dependencies:
   react-icons: 4.3.1_react@18.1.0
   react-qr-code: 2.0.7_react@18.1.0
   recharts: 2.1.10_ef5jwxihqo6n7gxfmzogljlgcm
+  sweetalert2: 11.4.17
   uuid: 8.3.2
   wagmi: 0.4.4_jap5a6nteegyjh6qk6qhbbfud4
 
@@ -8275,6 +8277,10 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /sweetalert2/11.4.17:
+    resolution: {integrity: sha512-z0iQW5fDdvtoDNle3iHTKunsuNWgPaMifVu0GPtdguR0uVPrvg9gg9bnSQeJ4tx3C7FwJOEnRshxrs6fFItRvw==}
+    dev: false
 
   /symbol-observable/1.2.0:
     resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==}

@@ -159,7 +159,7 @@ export default function VerificationForm() {
 										<ParchmentUpload uploadProps={uploadProps}/>
 										<Stack spacing={10} pt={2}>
 											<Button
-												isLoading={isLoading}
+												// isLoading={isLoading}
 												loadingText="Submitting"
 												size="lg"
 												type="submit"
