@@ -40,7 +40,8 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 export default function Footer() {
 	return (
 		<Box
-			bg={useColorModeValue('white', 'gray.900')}
+			borderTop='1px solid green.400'
+			bg={useColorModeValue('green.400', 'gray.900')}
 			color={useColorModeValue('gray.700', 'gray.200')}>
 			<Container as={Stack} maxW={'6xl'} py={10}>
 				<SimpleGrid
@@ -48,10 +49,11 @@ export default function Footer() {
 					spacing={8}>
 					<Stack spacing={6}>
 						<Box>
-							<Logo color={useColorModeValue('gray.700', 'white')} />
+							<img width={'50px'} alt={'logo'} src={'/assets/hacket-small.png'} style={ { borderRadius: '8px' } }/>
+
 						</Box>
 						<Text fontSize={'sm'}>
-							© 2022 Chakra Templates. All rights reserved
+							© 2022 Team Hacket. All rights reserved
 						</Text>
 					</Stack>
 					<Stack align={'flex-start'}>
