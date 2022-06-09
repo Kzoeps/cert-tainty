@@ -46,6 +46,7 @@ export default function VerificationForm() {
 	const [initialLoad, setInitialLoad] = useState(false);
 	const [files, setFiles] = useState<File[]>([]);
 	const [updateKyc, {data, loading, error}] = useMutation(VERIFY_KYC);
+	const [kycStatus, setKycStatus] = useState<string | undefined | boolean>(false);
 	const {loading: verifLoading, refetch} = useQuery(QUERY_VERIFICATION_STATUS);
 	const {data: accountData} = useAccount();
 	const toast = useToast();
@@ -58,7 +59,6 @@ export default function VerificationForm() {
 		}
 	};
 	const handleSubmit = async ({firstName, lastName, institutionName, email, institutionType}: VerificationFormI) => {
-		setIsLoading(true);
 		const fileUrls = [];
 		for (const file of files) {
 			fileUrls.push(await uploadVerifFile(file, accountData?.address));
